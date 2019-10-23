@@ -1,0 +1,9 @@
+version: '3'
+services:
+  web:
+    container_name: waproject-base-web-redux
+    build: .
+    ports:
+      - "3000":"3000"
+    volumes:
+      - .:/src:cached
