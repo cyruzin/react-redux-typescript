@@ -1,15 +1,12 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-import {
-  IRequest,
-  IRequestError
-} from '../interfaces/request';
+import { IRequest, IRequestError } from '../interfaces/request';
 
 // Default error messages for failing requests.
 const errorMessages: IRequestError = {
   default: 'Algo deu errado',
   noResponse: 'Sem responsta do servidor',
-  network: 'Erro de rede'
+  network: 'Erro de rede',
 };
 
 // This function handles three types of
@@ -17,26 +14,26 @@ const errorMessages: IRequestError = {
 function errorHandler(error: any): void {
   if (error.response) {
     /**
-      * The server responded with a status code
-      * that falls out of the range of 2xx.
-      */
+     * The server responded with a status code
+     * that falls out of the range of 2xx.
+     */
     throw error.response.data || errorMessages.default;
   } else if (error.request) {
     /**
-      * The request was made but no response was received.
-      */
+     * The request was made but no response was received.
+     */
     throw error.request.response || errorMessages.noResponse;
   } else {
     /**
-      * Something went wrong in setting up the request.
-      */
+     * Something went wrong in setting up the request.
+     */
     throw error.message || errorMessages.network;
   }
 }
 
 // Generic instance. For generic requests.
 const genericRequest = axios.create({
-  baseURL: ''
+  baseURL: '',
 });
 
 // Capturing the JWT token with interceptors.
@@ -51,7 +48,13 @@ genericRequest.interceptors.request.use(req => {
 
 export async function fetch({ url, method, headers, data, params }: IRequest): Promise<any> {
   try {
-    const response = await genericRequest({ url, headers, method, data, params } as AxiosRequestConfig);
+    const response = await genericRequest({
+      url,
+      headers,
+      method,
+      data,
+      params,
+    } as AxiosRequestConfig);
     return response.data;
   } catch (error) {
     errorHandler(error);
