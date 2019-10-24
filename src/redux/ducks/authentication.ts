@@ -10,7 +10,6 @@ import {
 /**
  * Authentication Types.
  */
-
 const types: ITypes = {
   FETCH: 'AUTHENTICATION/FETCH',
   SUCCESS: 'AUTHENTICATION/SUCCESS',
@@ -21,7 +20,6 @@ const types: ITypes = {
 /**
  * Authentication State.
  */
-
 interface IState {
   fetch: boolean;
   token: string;
@@ -39,7 +37,6 @@ const initialState: IState = {
 /**
  * Authentication Reducer.
  */
-
 export default (state: IState = initialState, action: Action): IState => {
   switch (action.type) {
     case types.FETCH:
@@ -71,7 +68,6 @@ export default (state: IState = initialState, action: Action): IState => {
 /**
  * Authentication Action Creators Functions.
  */
-
 export const fetchAuthentication = (): IFetchAction => ({
   type: types.FETCH,
 });
