@@ -39,7 +39,7 @@ const genericRequest = axios.create({
 // Capturing the JWT token with interceptors.
 genericRequest.interceptors.request.use(req => {
   const newRequest = req;
-  const store: any = localStorage.getItem('state');
+  const store: string = localStorage.getItem('state');
   const state = JSON.parse(store);
   const { token } = state.authentication.user;
   newRequest.headers.common['Authorization'] = `Bearer ${token}`;

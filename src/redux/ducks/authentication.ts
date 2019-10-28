@@ -7,6 +7,8 @@ import {
   Action,
 } from '../../interfaces/redux';
 
+import IAuthenticationState from '../../interfaces/authentication';
+
 /**
  * Authentication Types.
  */
@@ -20,24 +22,21 @@ const types: ITypes = {
 /**
  * Authentication State.
  */
-interface IState {
-  fetch: boolean;
-  token: string;
-  authorized: boolean;
-  error: string;
-}
-
-const initialState: IState = {
+const initialState: IAuthenticationState = {
   fetch: false,
   token: '',
-  authorized: false,
+  exp: 0,
+  authorized: true,
   error: '',
 };
 
 /**
  * Authentication Reducer.
  */
-export default (state: IState = initialState, action: Action): IState => {
+export default (
+  state: IAuthenticationState = initialState,
+  action: Action,
+): IAuthenticationState => {
   switch (action.type) {
     case types.FETCH:
       return {
@@ -48,7 +47,8 @@ export default (state: IState = initialState, action: Action): IState => {
       return {
         ...state,
         fetch: false,
-        token: action.payload,
+        token: action.payload.token,
+        exp: action.payload.exp,
         authorized: true,
         error: '',
       };
