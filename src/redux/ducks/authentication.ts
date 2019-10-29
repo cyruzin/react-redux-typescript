@@ -31,7 +31,7 @@ const initialState: IAuthenticationState = {
   fetch: false,
   token: '',
   exp: 0,
-  authorized: true,
+  authorized: false,
   error: ''
 };
 

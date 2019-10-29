@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -32,7 +33,9 @@ export default (
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>
-      <ListItemText primary="Sair" />
+      <Link to="/dashboard/logout" style={{ textDecoration: 'none' }}>
+        <ListItemText primary="Sair" />
+      </Link>
     </ListItem>
   </>
 );

@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import store from './redux/';
 
+import Routes from './components/Router';
 import PrivateRoute from './components/Router/PrivateRoute';
 import Authentication from './components/Authentication';
-import Dashboard from './components/Dashboard';
 
 const App: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <Router>
         <Switch>
           <Route path="/" exact component={Authentication} />
-          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/dashboard" component={Routes} />
           <Route
             render={() => (
               <>
