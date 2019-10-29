@@ -14,7 +14,7 @@ export function loadState(): any | undefined {
 // Saves a state to the localStorage.
 export function saveState(state: any): void | any {
   try {
-    const serializedState = JSON.stringify(state);
+    const serializedState: string = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (err) {
     return err;

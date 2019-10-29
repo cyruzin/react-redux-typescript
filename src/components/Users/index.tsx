@@ -19,7 +19,7 @@ function createData(
   name: string,
   shipTo: string,
   paymentMethod: string,
-  amount: number,
+  amount: number
 ) {
   return { id, date, name, shipTo, paymentMethod, amount };
 }
@@ -29,13 +29,13 @@ const rows = [
   createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
   createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
   createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
+  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79)
 ];
 
 const useStyles = makeStyles(theme => ({
   seeMore: {
-    marginTop: theme.spacing(3),
-  },
+    marginTop: theme.spacing(3)
+  }
 }));
 
 export default function Orders(props: IProps): JSX.Element {

@@ -1,12 +1,15 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
+import { ICredentials } from '../interfaces/authentication';
 import { IRequest, IRequestError } from '../interfaces/request';
+
+import { AUTH_ENDPOINT, API_ENDPOINT } from '../settings';
 
 // Default error messages for failing requests.
 const errorMessages: IRequestError = {
   default: 'Algo deu errado',
   noResponse: 'Sem responsta do servidor',
-  network: 'Erro de rede',
+  network: 'Erro de rede'
 };
 
 // This function handles three types of
@@ -31,9 +34,19 @@ function errorHandler(error: any): void {
   }
 }
 
+// For authentication requests.
+export async function fetchAuth(credentials: ICredentials): Promise<any> {
+  try {
+    const response = await axios.post(AUTH_ENDPOINT, credentials);
+    return response.data;
+  } catch (error) {
+    errorHandler(error);
+  }
+}
+
 // Generic instance. For generic requests.
 const genericRequest = axios.create({
-  baseURL: '',
+  baseURL: API_ENDPOINT
 });
 
 // Capturing the JWT token with interceptors.
@@ -53,7 +66,7 @@ export async function fetch({ url, method, headers, data, params }: IRequest): P
       headers,
       method,
       data,
-      params,
+      params
     } as AxiosRequestConfig);
     return response.data;
   } catch (error) {

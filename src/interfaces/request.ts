@@ -1,6 +1,6 @@
 export interface IRequest {
-  url: string;
-  method: string;
+  url?: string;
+  method?: string;
   headers?: any;
   params?: any;
   data?: any;

@@ -5,3 +5,8 @@ export default interface IAuthenticationState {
   authorized: boolean;
   error: string;
 }
+
+export interface ICredentials {
+  email: string;
+  password: string;
+}

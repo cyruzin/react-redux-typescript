@@ -11,13 +11,13 @@ const persistedState = loadState();
 const store = createStore(
   ReduxDucks,
   persistedState,
-  composeEnhancers(applyMiddleware(ReduxThunk)),
+  composeEnhancers(applyMiddleware(ReduxThunk))
 );
 
 store.subscribe(() =>
   saveState({
-    authentication: store.getState().authentication,
-  }),
+    authentication: store.getState().authentication
+  })
 );
 
 export default store;

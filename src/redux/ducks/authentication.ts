@@ -1,13 +1,18 @@
+import jwtDecode from 'jwt-decode';
+
 import {
   ITypes,
   IFetchAction,
   ISuccessAction,
   IFailureAction,
   IResetAction,
-  Action,
+  Dispatch,
+  Action
 } from '../../interfaces/redux';
 
-import IAuthenticationState from '../../interfaces/authentication';
+import IAuthenticationState, { ICredentials } from '../../interfaces/authentication';
+
+import { fetchAuth } from '../../utils/request';
 
 /**
  * Authentication Types.
@@ -16,7 +21,7 @@ const types: ITypes = {
   FETCH: 'AUTHENTICATION/FETCH',
   SUCCESS: 'AUTHENTICATION/SUCCESS',
   FAILURE: 'AUTHENTICATION/FAILURE',
-  RESET: 'AUTHENTICATION/RESET',
+  RESET: 'AUTHENTICATION/RESET'
 };
 
 /**
@@ -27,7 +32,7 @@ const initialState: IAuthenticationState = {
   token: '',
   exp: 0,
   authorized: true,
-  error: '',
+  error: ''
 };
 
 /**
@@ -35,13 +40,13 @@ const initialState: IAuthenticationState = {
  */
 export default (
   state: IAuthenticationState = initialState,
-  action: Action,
+  action: Action
 ): IAuthenticationState => {
   switch (action.type) {
     case types.FETCH:
       return {
         ...state,
-        fetch: true,
+        fetch: true
       };
     case types.SUCCESS:
       return {
@@ -50,13 +55,13 @@ export default (
         token: action.payload.token,
         exp: action.payload.exp,
         authorized: true,
-        error: '',
+        error: ''
       };
     case types.FAILURE:
       return {
         ...state,
         fetch: false,
-        error: action.payload,
+        error: action.payload
       };
     case types.RESET:
       return initialState;
@@ -69,23 +74,34 @@ export default (
  * Authentication Action Creators Functions.
  */
 export const fetchAuthentication = (): IFetchAction => ({
-  type: types.FETCH,
+  type: types.FETCH
 });
 
 export const successAuthentication = (payload: any): ISuccessAction => ({
   type: types.SUCCESS,
-  payload,
+  payload
 });
 
 export const failureAuthentication = (payload: string): IFailureAction => ({
   type: types.FAILURE,
-  payload,
+  payload
 });
 
 export const resetAuthentication = (): IResetAction => ({
-  type: types.RESET,
+  type: types.RESET
 });
 
 /**
  * Authentication Side Effects Types and Functions.
  */
+export const checkAuthentication = (credentials: ICredentials) => async (dispatch: Dispatch) => {
+  try {
+    dispatch(fetchAuthentication());
+    const response = await fetchAuth(credentials);
+    const claims = jwtDecode(response);
+    const payload = { token: response, ...claims };
+    dispatch(successAuthentication(payload));
+  } catch (error) {
+    dispatch(failureAuthentication(error));
+  }
+};

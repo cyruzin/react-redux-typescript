@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { checkAuthentication } from '../../redux/ducks/authentication';
+
+import { ICredentials } from '../../interfaces/authentication';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
@@ -13,6 +17,9 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
+import FormValidation from '@react-form-fields/material-ui/components/FormValidation';
+import FieldText from '@react-form-fields/material-ui/components/Text';
+
 interface IProps {
   classes?: any;
 }
@@ -20,30 +27,40 @@ interface IProps {
 const useStyles = makeStyles(theme => ({
   '@global': {
     body: {
-      backgroundColor: theme.palette.common.white,
-    },
+      backgroundColor: theme.palette.common.white
+    }
   },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }));
 
 export default function Authentication(props: IProps): JSX.Element {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const dispatch = useDispatch<any>();
   const classes = useStyles(props);
+
+  function authenticate(isValid: boolean): void {
+    if (!isValid) return;
+    const credentials: ICredentials = { email, password };
+    dispatch(checkAuthentication(credentials));
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -55,33 +72,41 @@ export default function Authentication(props: IProps): JSX.Element {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
+
+        <FormValidation onSubmit={isValid => authenticate(isValid)}>
+          <FieldText
             variant="outlined"
             margin="normal"
-            required
+            validation="required|email"
+            type="email"
             fullWidth
             id="email"
             label="E-mail"
             name="email"
-            autoComplete="email"
+            value={email}
+            onChange={email => setEmail(email)}
             autoFocus
           />
-          <TextField
+
+          <FieldText
             variant="outlined"
             margin="normal"
-            required
+            validation="required"
             fullWidth
             name="password"
+            value={password}
             label="Senha"
             type="password"
             id="password"
+            onChange={password => setPassword(password)}
             autoComplete="current-password"
           />
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Lembrar"
           />
+
           <Button
             type="submit"
             fullWidth
@@ -98,7 +123,7 @@ export default function Authentication(props: IProps): JSX.Element {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        </FormValidation>
       </div>
     </Container>
   );
