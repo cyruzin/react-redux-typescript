@@ -5,7 +5,7 @@ import Logout from '../Authentication/Logout';
 
 import Content from '../Dashboard/Content';
 
-export default function Dashboard() {
+export default function Routes() {
   return (
     <Content>
       <Switch>

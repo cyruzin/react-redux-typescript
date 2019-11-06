@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 
 import { resetAuthentication } from '../../redux/ducks/authentication';
 
-function Logout() {
-  const dispatch = useDispatch();
+function Logout(): JSX.Element {
+  const dispatch = useDispatch<any>();
   dispatch(resetAuthentication());
   return <Redirect to="/" />;
 }

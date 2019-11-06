@@ -16,20 +16,14 @@ const errorMessages: IRequestError = {
 // errors relationed to requests.
 function errorHandler(error: any): void {
   if (error.response) {
-    /**
-     * The server responded with a status code
-     * that falls out of the range of 2xx.
-     */
+    // The server responded with a status code
+    // that falls out of the range of 2xx.
     throw error.response.data || errorMessages.default;
   } else if (error.request) {
-    /**
-     * The request was made but no response was received.
-     */
+    // The request was made but no response was received.
     throw error.request.response || errorMessages.noResponse;
   } else {
-    /**
-     * Something went wrong in setting up the request.
-     */
+    // Something went wrong in setting up the request.
     throw error.message || errorMessages.network;
   }
 }
