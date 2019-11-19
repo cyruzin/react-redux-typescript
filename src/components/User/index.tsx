@@ -11,6 +11,10 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+import FieldText from '@react-form-fields/material-ui/components/Text';
 
 export default function User(): JSX.Element {
   const user = useSelector<IStore, IUserState>(state => state.user);
@@ -22,6 +26,17 @@ export default function User(): JSX.Element {
 
   return (
     <>
+      <FieldText
+        variant="outlined"
+        margin="normal"
+        type="text"
+        fullWidth
+        id="search"
+        label="Busca"
+        name="search"
+        value={''}
+        onChange={() => false}
+      />
       <Table size="medium">
         <TableHead>
           <TableRow>
@@ -43,10 +58,19 @@ export default function User(): JSX.Element {
                 <TableCell>{row.firstName}</TableCell>
                 <TableCell>{row.lastName}</TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell>{row.roles}</TableCell>
+                <TableCell>{row.roles.join(', ')}</TableCell>
                 <TableCell>{row.createdDate}</TableCell>
                 <TableCell>{row.updatedDate}</TableCell>
-                <TableCell align="right">-</TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="more"
+                    aria-controls="long-menu"
+                    aria-haspopup="true"
+                    onClick={() => false}
+                  >
+                    <MoreVertIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
