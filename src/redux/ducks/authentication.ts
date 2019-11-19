@@ -6,11 +6,16 @@ import {
   ISuccessAction,
   IFailureAction,
   IResetAction,
+  ThunkAction,
   Dispatch,
   Action
 } from '../../interfaces/redux';
 
-import IAuthenticationState, { ICredentials } from '../../interfaces/authentication';
+import IAuthenticationState, {
+  ICredentials,
+  IClaims,
+  IToken
+} from '../../interfaces/authentication';
 
 import { fetchAuth } from '../../utils/request';
 
@@ -31,6 +36,13 @@ const initialState: IAuthenticationState = {
   fetch: false,
   token: '',
   exp: 0,
+  iat: 0,
+  email: '',
+  id: 0,
+  firstName: '',
+  lastName: '',
+  roles: [],
+  type: 0,
   authorized: false,
   error: ''
 };
@@ -54,6 +66,13 @@ export default (
         fetch: false,
         token: action.payload.token,
         exp: action.payload.exp,
+        iat: action.payload.iat,
+        email: action.payload.email,
+        id: action.payload.id,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        roles: action.payload.roles,
+        type: action.payload.type,
         authorized: true,
         error: ''
       };
@@ -94,12 +113,14 @@ export const resetAuthentication = (): IResetAction => ({
 /**
  * Authentication Side Effects Types and Functions.
  */
-export const checkAuthentication = (credentials: ICredentials) => async (dispatch: Dispatch) => {
+export const checkAuthentication = (credentials: ICredentials): ThunkAction => async (
+  dispatch: Dispatch
+): Promise<void> => {
   try {
     dispatch(fetchAuthentication());
     const response = await fetchAuth(credentials);
-    const claims = jwtDecode(response);
-    const payload = { token: response, ...claims };
+    const claims: IClaims = jwtDecode(response);
+    const payload: IToken = { token: response, ...claims };
     dispatch(successAuthentication(payload));
   } catch (error) {
     dispatch(failureAuthentication(error));
