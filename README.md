@@ -38,6 +38,12 @@ Run the command bellow:
  docker-compose up -d
 ```
 
+## Login Credentials
+
+**E-mail**: admin@waproject.com.br
+
+**Password**: senha@123
+
 ## Tests
 
 This application uses **testing-library** for tests.
