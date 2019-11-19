@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { checkAuthentication } from '../../redux/ducks/authentication';
-import { sendAlert } from '../../redux/ducks/alert';
+import { checkAuthentication } from 'redux/ducks/authentication';
+import { sendAlert } from 'redux/ducks/alert';
 
-import IStore from '../../interfaces/store';
-import { IAuthenticationState, ICredentials } from '../../interfaces/authentication';
+import IStore from 'interfaces/store';
+import { IAuthenticationState, ICredentials } from 'interfaces/authentication';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -57,7 +57,9 @@ export default function Authentication(props: IProps): JSX.Element {
   const [password, setPassword] = useState(null);
 
   const dispatch = useDispatch<any>();
-  const authentication = useSelector<IStore, IAuthenticationState>(state => state.authentication);
+  const authentication = useSelector<IStore, IAuthenticationState>(
+    state => state.authentication
+  );
   const { authorized, error } = authentication;
 
   const classes = useStyles(props);
@@ -71,7 +73,7 @@ export default function Authentication(props: IProps): JSX.Element {
     if (error) dispatch(sendAlert(error, 'error'));
   }
 
-  if (authorized) return <Redirect to="/dashboard/users" />;
+  if (authorized) return <Redirect to="/dashboard/home" />;
 
   return (
     <Container component="main" maxWidth="xs">

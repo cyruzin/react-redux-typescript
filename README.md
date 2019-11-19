@@ -14,7 +14,7 @@ See this [repository](https://github.com/erikras/ducks-modular-redux) for more i
 
 ## Development
 
-Before everything, create a .env file by copying and renaming the **.env.development** file.
+Before everything, make sure to fill the **.env.development** file.
 
 ### Local
 

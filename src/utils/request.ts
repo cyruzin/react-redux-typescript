@@ -47,12 +47,18 @@ genericRequest.interceptors.request.use(req => {
   const newRequest = req;
   const store: string = localStorage.getItem('state');
   const state = JSON.parse(store);
-  const { token } = state.authentication.user;
+  const { token } = state.authentication;
   newRequest.headers.common['Authorization'] = `Bearer ${token}`;
   return newRequest;
 });
 
-export async function fetch({ url, method, headers, data, params }: IRequest): Promise<any> {
+export async function fetch({
+  url,
+  method,
+  headers,
+  data,
+  params
+}: IRequest): Promise<any> {
   try {
     const response = await genericRequest({
       url,
