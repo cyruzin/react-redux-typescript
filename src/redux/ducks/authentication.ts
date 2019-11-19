@@ -11,7 +11,8 @@ import {
   Action
 } from '../../interfaces/redux';
 
-import IAuthenticationState, {
+import {
+  IAuthenticationState,
   ICredentials,
   IClaims,
   IToken
@@ -19,9 +20,7 @@ import IAuthenticationState, {
 
 import { fetchAuth } from '../../utils/request';
 
-/**
- * Authentication Types.
- */
+/* Authentication Types. */
 const types: ITypes = {
   FETCH: 'AUTHENTICATION/FETCH',
   SUCCESS: 'AUTHENTICATION/SUCCESS',
@@ -29,9 +28,7 @@ const types: ITypes = {
   RESET: 'AUTHENTICATION/RESET'
 };
 
-/**
- * Authentication State.
- */
+/* Authentication State. */
 const initialState: IAuthenticationState = {
   fetch: false,
   token: '',
@@ -47,9 +44,7 @@ const initialState: IAuthenticationState = {
   error: ''
 };
 
-/**
- * Authentication Reducer.
- */
+/* Authentication Reducer. */
 export default (
   state: IAuthenticationState = initialState,
   action: Action
@@ -89,14 +84,12 @@ export default (
   }
 };
 
-/**
- * Authentication Action Creators Functions.
- */
+/* Authentication Action Creators Functions. */
 export const fetchAuthentication = (): IFetchAction => ({
   type: types.FETCH
 });
 
-export const successAuthentication = (payload: any): ISuccessAction => ({
+export const successAuthentication = (payload: IToken): ISuccessAction => ({
   type: types.SUCCESS,
   payload
 });
@@ -110,9 +103,7 @@ export const resetAuthentication = (): IResetAction => ({
   type: types.RESET
 });
 
-/**
- * Authentication Side Effects Types and Functions.
- */
+/* Authentication Side Effects Types and Functions. */
 export const checkAuthentication = (credentials: ICredentials): ThunkAction => async (
   dispatch: Dispatch
 ): Promise<void> => {

@@ -1,4 +1,4 @@
-// Loads a state from localStorage if it exists.
+/* Loads a state from localStorage if it exists. */
 export function loadState(): any | undefined {
   try {
     const serializedState: string = localStorage.getItem('state');
@@ -11,7 +11,7 @@ export function loadState(): any | undefined {
   }
 }
 
-// Saves a state to the localStorage.
+/* Saves a state to the localStorage. */
 export function saveState(state: any): void | any {
   try {
     const serializedState: string = JSON.stringify(state);

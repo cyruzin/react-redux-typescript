@@ -7,10 +7,12 @@ import store from './redux/';
 import Routes from './components/Router';
 import PrivateRoute from './components/Router/PrivateRoute';
 import Authentication from './components/Authentication';
+import Alert from './components/Global/Alert';
 
 const App: React.FC = () => {
   return (
     <Provider store={store}>
+      <Alert />
       <Router>
         <Switch>
           <Route path="/" exact component={Authentication} />

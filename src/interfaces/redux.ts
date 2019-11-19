@@ -5,7 +5,7 @@ export interface ITypes {
   RESET?: string;
 }
 
-type BaseAction = {
+export type BaseAction = {
   type: string;
   payload?: any;
 };

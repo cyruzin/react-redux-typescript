@@ -1,4 +1,4 @@
-export default interface IAuthenticationState {
+export interface IAuthenticationState {
   fetch: boolean;
   token: string;
   exp: number;

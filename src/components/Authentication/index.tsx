@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { checkAuthentication } from '../../redux/ducks/authentication';
+import { sendAlert } from '../../redux/ducks/alert';
 
 import IStore from '../../interfaces/store';
-import IAuthenticationState, { ICredentials } from '../../interfaces/authentication';
+import { IAuthenticationState, ICredentials } from '../../interfaces/authentication';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -57,16 +58,20 @@ export default function Authentication(props: IProps): JSX.Element {
 
   const dispatch = useDispatch<any>();
   const authentication = useSelector<IStore, IAuthenticationState>(state => state.authentication);
+  const { authorized, error } = authentication;
 
   const classes = useStyles(props);
 
-  function authenticate(isValid: boolean): void {
+  async function authenticate(isValid: boolean): Promise<void> {
     if (!isValid) return;
+
     const credentials: ICredentials = { email, password };
     dispatch(checkAuthentication(credentials));
+
+    if (error) dispatch(sendAlert(error, 'error'));
   }
 
-  if (authentication.authorized) return <Redirect to="/dashboard/users" />;
+  if (authorized) return <Redirect to="/dashboard/users" />;
 
   return (
     <Container component="main" maxWidth="xs">
