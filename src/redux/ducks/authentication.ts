@@ -103,10 +103,10 @@ export const resetAuthentication = (): IResetAction => ({
   type: types.RESET
 });
 
-/* Authentication Side Effects Types and Functions. */
-export const checkAuthentication = (credentials: ICredentials): ThunkAction => async (
-  dispatch: Dispatch
-): Promise<void> => {
+/* Authentication Side Effects Functions. */
+export const checkAuthentication = (
+  credentials: ICredentials
+): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(fetchAuthentication());
     const response = await fetchAuth(credentials);

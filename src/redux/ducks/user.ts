@@ -85,15 +85,21 @@ export const failureUser = (payload: string): IFailureAction => ({
   payload
 });
 
-/* User Side Effects Types and Functions. */
-export const listUser = (): ThunkAction => async (
-  dispatch: Dispatch
-): Promise<void> => {
+/* User Side Effects Functions. */
+export const listUser = (
+  page = 0,
+  pageSize = 10,
+  term?: string,
+  orderBy?: string,
+  orderDirection?: string
+): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
   try {
     const data: IRequest = {
       method: EMethod.GET,
-      url: '/admin/user?page=1&pageSize=10'
+      url: '/admin/user',
+      params: { page, pageSize, term, orderBy, orderDirection }
     };
+    dispatch(fetchUser());
     const response = await fetch(data);
     dispatch(successUser(response));
   } catch (error) {

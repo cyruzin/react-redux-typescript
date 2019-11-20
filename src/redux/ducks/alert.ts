@@ -21,7 +21,10 @@ const initialState: IAlertState = {
 };
 
 /* Alert Reducer. */
-export default (state: IAlertState = initialState, action: IAlertAction): IAlertState => {
+export default (
+  state: IAlertState = initialState,
+  action: IAlertAction
+): IAlertState => {
   switch (action.type) {
     case types.SEND:
       return {

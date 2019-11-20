@@ -22,7 +22,10 @@ export default function Alert() {
     setOpen(show);
   }
 
-  function handleClose(event: React.SyntheticEvent<any, Event>, reason: string): void {
+  function handleClose(
+    event: React.SyntheticEvent<any, Event>,
+    reason: string
+  ): void {
     if (reason === 'clickaway') {
       return;
     }

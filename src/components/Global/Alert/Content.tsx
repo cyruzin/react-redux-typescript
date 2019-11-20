@@ -67,7 +67,12 @@ export default function Content(props: IProps) {
         </span>
       }
       action={[
-        <IconButton key="close" aria-label="close" color="inherit" onClick={onClick as any}>
+        <IconButton
+          key="close"
+          aria-label="close"
+          color="inherit"
+          onClick={onClick as any}
+        >
           <CloseIcon className={classes.icon} />
         </IconButton>
       ]}
