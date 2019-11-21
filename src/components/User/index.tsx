@@ -174,10 +174,6 @@ export default function User(): JSX.Element {
         onChange={term => search(term)}
       />
 
-      <Fab color="primary" aria-label="add">
-        <AddIcon onClick={() => handleOpenDialog()} />
-      </Fab>
-
       {!fetch && results && results.length === 0 && (
         <Typography variant="subtitle1" component="h2" align="center">
           Sem resultados
@@ -196,6 +192,11 @@ export default function User(): JSX.Element {
               <TableCell>Criado em</TableCell>
               <TableCell>Atualizado em</TableCell>
               <TableCell align="right">Ações</TableCell>
+              <TableCell>
+                <Fab color="primary" aria-label="add" size="small">
+                  <AddIcon onClick={() => handleOpenDialog()} />
+                </Fab>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
