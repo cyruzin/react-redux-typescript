@@ -7,9 +7,14 @@ import { IAuthenticationState } from '../../interfaces/authentication';
 
 import { resetAuthentication } from '../../redux/ducks/authentication';
 
-export default function PrivateRoute({ component: Component }: any, { ...rest }) {
+export default function PrivateRoute(
+  { component: Component }: any,
+  { ...rest }
+) {
   const dispatch = useDispatch<any>();
-  const authentication = useSelector<IStore, IAuthenticationState>(state => state.authentication);
+  const authentication = useSelector<IStore, IAuthenticationState>(
+    state => state.authentication
+  );
   const { authorized } = authentication;
 
   /* Checking token expiration time. */

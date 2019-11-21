@@ -6,6 +6,8 @@ import {
   Dispatch
 } from 'interfaces/redux';
 
+import { sendAlert } from 'redux/ducks/alert';
+
 import { IRequest } from 'interfaces/request';
 import {
   IUser,
@@ -17,6 +19,7 @@ import {
 import { EMethod } from 'enums/method';
 
 import { fetch } from 'utils/request';
+import { handleError } from 'utils/error';
 
 /* User Types. */
 const types: IUserTypes = {
@@ -80,7 +83,7 @@ export const successUser = (payload: IUser[]): ISuccessAction => ({
   payload
 });
 
-export const failureUser = (payload: string): IFailureAction => ({
+export const failureUser = (payload?: string): IFailureAction => ({
   type: types.FAILURE,
   payload
 });
@@ -103,34 +106,63 @@ export const listUser = (
     const response = await fetch(data);
     dispatch(successUser(response));
   } catch (error) {
-    dispatch(failureUser(error));
+    dispatch(failureUser());
+    dispatch(sendAlert(handleError(error), 'error'));
   }
 };
 
-// export const listUserByID = (id: number): ThunkAction => async (
-//   dispatch: Dispatch
-// ): Promise<void> => {
-//   try {
-//   } catch (error) {}
-// };
+export const createUser = (payload: IUser): ThunkAction => async (
+  dispatch: Dispatch
+): Promise<void> => {
+  try {
+    const data: IRequest = {
+      method: EMethod.POST,
+      url: '/admin/user',
+      data: payload
+    };
+    dispatch(fetchUser());
+    await fetch(data);
+    dispatch(sendAlert('Usuário criado com sucesso!', 'success'));
+    dispatch(listUser());
+  } catch (error) {
+    dispatch(failureUser());
+    dispatch(sendAlert(handleError(error), 'error'));
+  }
+};
 
-// export const createtUser = (payload: any): ThunkAction => async (
-//   dispatch: Dispatch
-// ): Promise<void> => {
-//   try {
-//   } catch (error) {}
-// };
+export const updateUser = (payload: IUser): ThunkAction => async (
+  dispatch: Dispatch
+): Promise<void> => {
+  try {
+    const data: IRequest = {
+      method: EMethod.POST,
+      url: '/admin/user',
+      data: payload
+    };
+    dispatch(fetchUser());
+    await fetch(data);
+    dispatch(sendAlert('Usuário editado com sucesso!', 'success'));
+    dispatch(listUser());
+  } catch (error) {
+    dispatch(failureUser());
+    dispatch(sendAlert(handleError(error), 'error'));
+  }
+};
 
-// export const updatetUser = (id: number, payload: any): ThunkAction => async (
-//   dispatch: Dispatch
-// ): Promise<void> => {
-//   try {
-//   } catch (error) {}
-// };
-
-// export const deleteUser = (id: number): ThunkAction => async (
-//   dispatch: Dispatch
-// ): Promise<void> => {
-//   try {
-//   } catch (error) {}
-// };
+export const deleteUser = (id: number): ThunkAction => async (
+  dispatch: Dispatch
+): Promise<void> => {
+  try {
+    const data: IRequest = {
+      method: EMethod.DELETE,
+      url: `/admin/user/${id}`
+    };
+    dispatch(fetchUser());
+    await fetch(data);
+    dispatch(sendAlert('Usuário deletado com sucesso!', 'success'));
+    dispatch(listUser());
+  } catch (error) {
+    dispatch(failureUser());
+    dispatch(sendAlert(handleError(error), 'error'));
+  }
+};

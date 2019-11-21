@@ -28,7 +28,11 @@ export interface IResetAction extends BaseAction {
   type: ITypes['RESET'];
 }
 
-export type Action = IFetchAction | ISuccessAction | IFailureAction | IResetAction;
+export type Action =
+  | IFetchAction
+  | ISuccessAction
+  | IFailureAction
+  | IResetAction;
 
 export type GetState = () => any;
 
@@ -36,4 +40,6 @@ export type PromiseAction = Promise<Action>;
 
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
 
-export type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any;
+export type Dispatch = (
+  action: Action | ThunkAction | PromiseAction | Array<Action>
+) => any;
