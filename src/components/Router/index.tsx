@@ -9,8 +9,7 @@ export default function Routes() {
   return (
     <Content>
       <Switch>
-        <Route path="/dashboard/home" component={() => <h1>Dashboard</h1>} />
-        <Route path="/dashboard/users" component={User} />
+        <Route path="/dashboard/user" component={User} />
         <Route path="/dashboard/logout" component={Logout} />
       </Switch>
     </Content>

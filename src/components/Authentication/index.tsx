@@ -73,7 +73,7 @@ export default function Authentication(props: IProps): JSX.Element {
     if (error) dispatch(sendAlert(error, 'error'));
   }
 
-  if (authorized) return <Redirect to="/dashboard/home" />;
+  if (authorized) return <Redirect to="/dashboard/user" />;
 
   return (
     <Container component="main" maxWidth="xs">
