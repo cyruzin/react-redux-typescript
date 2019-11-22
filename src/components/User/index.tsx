@@ -43,7 +43,6 @@ export default function User(): JSX.Element {
   const [form, setForm] = useState(userState);
   const [userID, setUserID] = useState(null);
 
-  const [roles, setRole] = useState<ERoles[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -74,14 +73,7 @@ export default function User(): JSX.Element {
   function handleOpenModal(user?: IUser): void {
     setOpenModal(true);
     if (user) {
-      const { id, firstName, lastName, email } = user;
-      setForm({
-        id,
-        firstName,
-        lastName,
-        email,
-        roles
-      });
+      setForm(user);
     }
   }
 
@@ -121,11 +113,7 @@ export default function User(): JSX.Element {
     }
     setOpenModal(false);
     setSearchTerm('');
-    const withRoles = {
-      ...form,
-      roles
-    };
-    return dispatch(createUser(withRoles));
+    return dispatch(createUser(form));
   }
 
   /* Handles user deletion */
@@ -139,70 +127,14 @@ export default function User(): JSX.Element {
   function handleRolesChange(
     event: React.ChangeEvent<{ value: unknown }>
   ): void {
-    setRole(event.target.value as ERoles[]);
+    setForm({
+      ...form,
+      roles: event.target.value as ERoles[]
+    });
   }
 
   return (
     <>
-      <Modal
-        open={openModal}
-        title={!form.id ? 'Criar' : 'Editar'}
-        closeButtonName="Cancelar"
-        confirmButtonName={!form.id ? 'Criar' : 'Editar'}
-        handleClose={handleCloseModal}
-        handleConfirm={formHandler}
-      >
-        <TextField
-          variant="outlined"
-          margin="normal"
-          type="text"
-          fullWidth
-          id="firstName"
-          label="Nome"
-          name="firstName"
-          value={form.firstName}
-          onChange={event => setField(event)}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          type="text"
-          fullWidth
-          id="lastName"
-          label="Sobrenome"
-          name="lastName"
-          value={form.lastName}
-          onChange={event => setField(event)}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          type="email"
-          fullWidth
-          id="email"
-          label="E-mail"
-          name="email"
-          value={form.email}
-          onChange={event => setField(event)}
-        />
-        <Tags
-          data={Object.keys(ERoles)}
-          handleChange={handleRolesChange}
-          value={roles}
-        />
-      </Modal>
-
-      <Modal
-        open={openDeleteModal}
-        title="Deletar"
-        closeButtonName="Cancelar"
-        confirmButtonName="Confirmar"
-        showContentText
-        contentText="Tem certeza que deseja deletar este usuário?"
-        handleClose={handleCloseDeleteModal}
-        handleConfirm={() => handleDelete(userID)}
-      />
-
       <Loading show={fetch} />
 
       <FieldText
@@ -224,49 +156,109 @@ export default function User(): JSX.Element {
       )}
 
       {!fetch && results && results.length > 0 && (
-        <Table size="medium">
-          <TableHead>
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>Nome</TableCell>
-              <TableCell>Sobrenome</TableCell>
-              <TableCell>E-mail</TableCell>
-              <TableCell>Roles</TableCell>
-              <TableCell>Criado em</TableCell>
-              <TableCell>Atualizado em</TableCell>
-              <TableCell align="right">Ações</TableCell>
-              <TableCell>
-                <Fab color="primary" aria-label="add" size="small">
-                  <AddIcon onClick={() => handleOpenModal()} />
-                </Fab>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {results &&
-              results.map(user => (
-                <TableRow key={user.id}>
-                  <TableCell>{user.id}</TableCell>
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.roles.join(', ')}</TableCell>
-                  <TableCell>
-                    {dateFormat(new Date(user.createdDate), 'dd/mm/yyyy')}
-                  </TableCell>
-                  <TableCell>
-                    {dateFormat(new Date(user.updatedDate), 'dd/mm/yyyy')}
-                  </TableCell>
-                  <TableCell align="right">
-                    <Actions
-                      onEdit={() => handleOpenModal(user)}
-                      onDelete={() => handleOpenDeleteModal(user.id)}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+        <>
+          <Modal
+            open={openModal}
+            title={!form.id ? 'Criar' : 'Editar'}
+            closeButtonName="Cancelar"
+            confirmButtonName={!form.id ? 'Criar' : 'Editar'}
+            handleClose={handleCloseModal}
+            handleConfirm={formHandler}
+          >
+            <TextField
+              variant="outlined"
+              margin="normal"
+              type="text"
+              fullWidth
+              id="firstName"
+              label="Nome"
+              name="firstName"
+              value={form.firstName}
+              onChange={event => setField(event)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              type="text"
+              fullWidth
+              id="lastName"
+              label="Sobrenome"
+              name="lastName"
+              value={form.lastName}
+              onChange={event => setField(event)}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              type="email"
+              fullWidth
+              id="email"
+              label="E-mail"
+              name="email"
+              value={form.email}
+              onChange={event => setField(event)}
+            />
+            <Tags
+              data={Object.keys(ERoles)}
+              handleChange={handleRolesChange}
+              value={form.roles}
+            />
+          </Modal>
+
+          <Modal
+            open={openDeleteModal}
+            title="Deletar"
+            closeButtonName="Cancelar"
+            confirmButtonName="Confirmar"
+            showContentText
+            contentText="Tem certeza que deseja deletar este usuário?"
+            handleClose={handleCloseDeleteModal}
+            handleConfirm={() => handleDelete(userID)}
+          />
+          <Table size="medium">
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Nome</TableCell>
+                <TableCell>Sobrenome</TableCell>
+                <TableCell>E-mail</TableCell>
+                <TableCell>Roles</TableCell>
+                <TableCell>Criado em</TableCell>
+                <TableCell>Atualizado em</TableCell>
+                <TableCell align="right">Ações</TableCell>
+                <TableCell>
+                  <Fab color="primary" aria-label="add" size="small">
+                    <AddIcon onClick={() => handleOpenModal()} />
+                  </Fab>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {results &&
+                results.map(user => (
+                  <TableRow key={user.id}>
+                    <TableCell>{user.id}</TableCell>
+                    <TableCell>{user.firstName}</TableCell>
+                    <TableCell>{user.lastName}</TableCell>
+                    <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.roles.join(', ')}</TableCell>
+                    <TableCell>
+                      {dateFormat(new Date(user.createdDate), 'dd/mm/yyyy')}
+                    </TableCell>
+                    <TableCell>
+                      {dateFormat(new Date(user.updatedDate), 'dd/mm/yyyy')}
+                    </TableCell>
+                    <TableCell align="right">
+                      <Actions
+                        onEdit={() => handleOpenModal(user)}
+                        onDelete={() => handleOpenDeleteModal(user.id)}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </>
       )}
     </>
   );

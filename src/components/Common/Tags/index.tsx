@@ -33,9 +33,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chip: {
       margin: 2
-    },
-    noLabel: {
-      marginTop: theme.spacing(3)
     }
   })
 );
