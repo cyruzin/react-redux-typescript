@@ -1,5 +1,6 @@
 export enum enValidationError {
-  UNEXPECTED = 'Erro inesperado'
+  UNEXPECTED = 'Erro inesperado',
+  EMAIL_UNAVAILABLE = 'E-mail indisponível'
 }
 
 export enum enValidationMultipleErrors {
