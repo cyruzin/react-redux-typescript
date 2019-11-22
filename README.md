@@ -12,9 +12,9 @@ This project uses the duck pattern to scale better. This pattern provides better
 
 See this [repository](https://github.com/erikras/ducks-modular-redux) for more information.
 
-## Development
+## Usage
 
-Before everything, make sure to fill the **.env.development** file.
+Before everything, make sure to create a copy o the **.env.example** file and fill the variables.
 
 ### Local
 
