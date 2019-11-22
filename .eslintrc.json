@@ -52,10 +52,6 @@
         "no-var": [
             "error"
         ],
-        "quotes": [
-            "error",
-            "single"
-        ],
         "quote-props": [
             "error",
             "as-needed"

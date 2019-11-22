@@ -16,11 +16,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -28,6 +23,8 @@ import AddIcon from '@material-ui/icons/Add';
 import FieldText from '@react-form-fields/material-ui/components/Text';
 
 import Loading from 'components/Common/Loading';
+import Modal from 'components/Common/Modal';
+
 import Actions from './Actions';
 
 export default function User(): JSX.Element {
@@ -35,15 +32,17 @@ export default function User(): JSX.Element {
   const { fetch, results } = user;
   const dispatch = useDispatch();
 
-  const state: IUser = {
+  const userState: IUser = {
     firstName: '',
     lastName: '',
     email: '',
     roles: [ERoles.user]
   };
-  const [form, setForm] = useState(state);
+  const [form, setForm] = useState(userState);
+  const [userID, setUserID] = useState(null);
 
-  const [openDialog, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -58,8 +57,8 @@ export default function User(): JSX.Element {
     dispatch(listUser(0, 10, searchTerm));
   }
 
-  function handleOpenDialog(user?: IUser): void {
-    setOpen(true);
+  function handleOpenModal(user?: IUser): void {
+    setOpenModal(true);
     if (user) {
       const { id, firstName, lastName, email, roles } = user;
       setForm({
@@ -72,9 +71,18 @@ export default function User(): JSX.Element {
     }
   }
 
-  function handleCloseDialog(): void {
-    setOpen(false);
-    setForm(state);
+  function handleCloseModal(): void {
+    setOpenModal(false);
+    setForm(userState);
+  }
+
+  function handleOpenDeleteModal(id: number): void {
+    setOpenDeleteModal(true);
+    setUserID(id);
+  }
+
+  function handleCloseDeleteModal(): void {
+    setOpenDeleteModal(false);
   }
 
   function setField(
@@ -88,12 +96,12 @@ export default function User(): JSX.Element {
 
   function formHandler(): any {
     if (form.id) {
-      setOpen(false);
+      setOpenModal(false);
       setSearchTerm('');
       return dispatch(updateUser(form));
     }
 
-    setOpen(false);
+    setOpenModal(false);
     setSearchTerm('');
     return dispatch(createUser(form));
   }
@@ -101,64 +109,54 @@ export default function User(): JSX.Element {
   function handleDelete(id: number): void {
     dispatch(deleteUser(id));
 
-    setOpen(false);
+    setOpenDeleteModal(false);
     setSearchTerm('');
   }
 
   return (
     <>
-      <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
+      <Modal
+        open={openModal}
+        title={!form.id ? 'Criar' : 'Editar'}
+        closeButtonName="Cancelar"
+        confirmButtonName={!form.id ? 'Criar' : 'Editar'}
+        handleClose={handleCloseModal}
+        handleConfirm={formHandler}
       >
-        <DialogTitle id="form-dialog-title">
-          {!form.id ? 'Criar' : 'Editar'}
-        </DialogTitle>
-        <DialogContent>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            type="text"
-            fullWidth
-            id="firstName"
-            label="Nome"
-            name="firstName"
-            value={form.firstName}
-            onChange={event => setField(event)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            type="text"
-            fullWidth
-            id="lastName"
-            label="Sobrenome"
-            name="lastName"
-            value={form.lastName}
-            onChange={event => setField(event)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            type="email"
-            fullWidth
-            id="email"
-            label="E-mail"
-            name="email"
-            value={form.email}
-            onChange={event => setField(event)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={formHandler} color="primary">
-            {!form.id ? 'Criar' : 'Editar'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          type="text"
+          fullWidth
+          id="firstName"
+          label="Nome"
+          name="firstName"
+          value={form.firstName}
+          onChange={event => setField(event)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          type="text"
+          fullWidth
+          id="lastName"
+          label="Sobrenome"
+          name="lastName"
+          value={form.lastName}
+          onChange={event => setField(event)}
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          type="email"
+          fullWidth
+          id="email"
+          label="E-mail"
+          name="email"
+          value={form.email}
+          onChange={event => setField(event)}
+        />
+      </Modal>
 
       <Loading show={fetch} />
 
@@ -172,6 +170,17 @@ export default function User(): JSX.Element {
         name="search"
         value={searchTerm}
         onChange={term => search(term)}
+      />
+
+      <Modal
+        open={openDeleteModal}
+        title="Deletar"
+        closeButtonName="Cancelar"
+        confirmButtonName="Confirmar"
+        showContentText
+        contentText="Tem certeza que deseja remover este usuário?"
+        handleClose={handleCloseDeleteModal}
+        handleConfirm={() => handleDelete(userID)}
       />
 
       {!fetch && results && results.length === 0 && (
@@ -194,7 +203,7 @@ export default function User(): JSX.Element {
               <TableCell align="right">Ações</TableCell>
               <TableCell>
                 <Fab color="primary" aria-label="add" size="small">
-                  <AddIcon onClick={() => handleOpenDialog()} />
+                  <AddIcon onClick={() => handleOpenModal()} />
                 </Fab>
               </TableCell>
             </TableRow>
@@ -216,8 +225,8 @@ export default function User(): JSX.Element {
                   </TableCell>
                   <TableCell align="right">
                     <Actions
-                      onEdit={() => handleOpenDialog(user)}
-                      onDelete={() => handleDelete(user.id)}
+                      onEdit={() => handleOpenModal(user)}
+                      onDelete={() => handleOpenDeleteModal(user.id)}
                     />
                   </TableCell>
                 </TableRow>
