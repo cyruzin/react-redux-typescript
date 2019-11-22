@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { listUser, createUser, updateUser, deleteUser } from 'redux/ducks/user';
@@ -9,6 +9,7 @@ import { IUserState, IUser } from 'interfaces/user';
 import { ERoles } from 'enums/user';
 
 import { format as dateFormat } from 'date-fns';
+import debounce from 'lodash/debounce';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -49,14 +50,25 @@ export default function User(): JSX.Element {
     dispatch(listUser());
   }, [dispatch]);
 
+  /* Adds 800 milliseconds delay to the search function
+    to prevent multiple calls to the API. */
+  const delayedSearch = useCallback(
+    debounce((searchTerm?: string) => {
+      dispatch(listUser(0, 10, searchTerm));
+    }, 800),
+    []
+  );
+
+  /* Handles user search */
   function search(term: string): void {
     setSearchTerm(term);
     if (!!searchTerm) {
-      dispatch(listUser());
+      delayedSearch();
     }
-    dispatch(listUser(0, 10, searchTerm));
+    delayedSearch(searchTerm);
   }
 
+  /* Handles modal opening for user creation and update */
   function handleOpenModal(user?: IUser): void {
     setOpenModal(true);
     if (user) {
@@ -71,20 +83,24 @@ export default function User(): JSX.Element {
     }
   }
 
+  /* Handles modal closure for user creation and update */
   function handleCloseModal(): void {
     setOpenModal(false);
     setForm(userState);
   }
 
+  /* Handles modal opening for user deletion */
   function handleOpenDeleteModal(id: number): void {
     setOpenDeleteModal(true);
     setUserID(id);
   }
 
+  /* Handles modal closure for user deletion */
   function handleCloseDeleteModal(): void {
     setOpenDeleteModal(false);
   }
 
+  /* Handle form fields dynamically */
   function setField(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ): void {
@@ -94,21 +110,21 @@ export default function User(): JSX.Element {
     });
   }
 
+  /* Handle user creation and update */
   function formHandler(): any {
     if (form.id) {
       setOpenModal(false);
       setSearchTerm('');
       return dispatch(updateUser(form));
     }
-
     setOpenModal(false);
     setSearchTerm('');
     return dispatch(createUser(form));
   }
 
+  /* Handles user deletion */
   function handleDelete(id: number): void {
     dispatch(deleteUser(id));
-
     setOpenDeleteModal(false);
     setSearchTerm('');
   }
@@ -158,6 +174,17 @@ export default function User(): JSX.Element {
         />
       </Modal>
 
+      <Modal
+        open={openDeleteModal}
+        title="Deletar"
+        closeButtonName="Cancelar"
+        confirmButtonName="Confirmar"
+        showContentText
+        contentText="Tem certeza que deseja remover este usuário?"
+        handleClose={handleCloseDeleteModal}
+        handleConfirm={() => handleDelete(userID)}
+      />
+
       <Loading show={fetch} />
 
       <FieldText
@@ -170,17 +197,6 @@ export default function User(): JSX.Element {
         name="search"
         value={searchTerm}
         onChange={term => search(term)}
-      />
-
-      <Modal
-        open={openDeleteModal}
-        title="Deletar"
-        closeButtonName="Cancelar"
-        confirmButtonName="Confirmar"
-        showContentText
-        contentText="Tem certeza que deseja remover este usuário?"
-        handleClose={handleCloseDeleteModal}
-        handleConfirm={() => handleDelete(userID)}
       />
 
       {!fetch && results && results.length === 0 && (
