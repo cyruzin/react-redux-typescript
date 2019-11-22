@@ -6,23 +6,27 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 
+type Item = {
+  name: string;
+  callback: () => any;
+};
+
 interface IProps {
-  onEdit: () => void;
-  onDelete: () => void;
+  items: Array<Item>;
 }
 
 export default function Actions(props: IProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const { onEdit, onDelete } = props;
   const openMenu = Boolean(anchorEl);
+  const { items } = props;
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  function handleClick(event: React.MouseEvent<HTMLElement>): void {
     setAnchorEl(event.currentTarget);
-  };
+  }
 
-  const handleClose = () => {
+  function handleClose(): void {
     setAnchorEl(null);
-  };
+  }
 
   return (
     <>
@@ -41,8 +45,11 @@ export default function Actions(props: IProps) {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={onEdit}>Editar</MenuItem>
-        <MenuItem onClick={onDelete}>Deletar</MenuItem>
+        {items.map(item => (
+          <MenuItem key={item.name} onClick={item.callback}>
+            {item.name}
+          </MenuItem>
+        ))}
       </Menu>
     </>
   );

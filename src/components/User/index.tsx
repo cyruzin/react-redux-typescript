@@ -27,7 +27,7 @@ import Loading from 'components/Common/Loading';
 import Modal from 'components/Common/Modal';
 import Tags from 'components/Common/Tags';
 
-import Actions from './Actions';
+import Actions from 'components/Common/Actions';
 
 export default function User(): JSX.Element {
   const user = useSelector<IStore, IUserState>(state => state.user);
@@ -243,15 +243,23 @@ export default function User(): JSX.Element {
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.roles.join(', ')}</TableCell>
                     <TableCell>
-                      {dateFormat(new Date(user.createdDate), 'dd/mm/yyyy')}
+                      {dateFormat(new Date(user.createdDate), 'dd/MM/yyyy')}
                     </TableCell>
                     <TableCell>
-                      {dateFormat(new Date(user.updatedDate), 'dd/mm/yyyy')}
+                      {dateFormat(new Date(user.updatedDate), 'dd/MM/yyyy')}
                     </TableCell>
                     <TableCell align="right">
                       <Actions
-                        onEdit={() => handleOpenModal(user)}
-                        onDelete={() => handleOpenDeleteModal(user.id)}
+                        items={[
+                          {
+                            name: 'Editar',
+                            callback: () => handleOpenModal(user)
+                          },
+                          {
+                            name: 'Deletar',
+                            callback: () => handleOpenDeleteModal(user.id)
+                          }
+                        ]}
                       />
                     </TableCell>
                   </TableRow>
