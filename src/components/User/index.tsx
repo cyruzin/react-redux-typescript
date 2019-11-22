@@ -55,7 +55,7 @@ export default function User(): JSX.Element {
     to prevent multiple calls to the API. */
   const delayedSearch = useCallback(
     debounce((searchTerm?: string) => {
-      dispatch(listUser(0, 10, searchTerm));
+      dispatch(listUser(searchTerm));
     }, 800),
     []
   );

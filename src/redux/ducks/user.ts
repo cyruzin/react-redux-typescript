@@ -90,17 +90,17 @@ export const failureUser = (payload?: string): IFailureAction => ({
 
 /* User Side Effects Functions. */
 export const listUser = (
+  term?: string,
   page = 0,
   pageSize = 10,
-  term?: string,
-  orderBy?: string,
-  orderDirection?: string
+  orderBy = 'updatedDate',
+  orderDirection = 'desc'
 ): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
   try {
     const data: IRequest = {
       method: EMethod.GET,
       url: '/admin/user',
-      params: { page, pageSize, term, orderBy, orderDirection }
+      params: { term, page, pageSize, orderBy, orderDirection }
     };
     dispatch(fetchUser());
     const response = await fetch(data);
