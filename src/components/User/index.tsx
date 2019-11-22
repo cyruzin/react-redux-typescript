@@ -25,6 +25,7 @@ import FieldText from '@react-form-fields/material-ui/components/Text';
 
 import Loading from 'components/Common/Loading';
 import Modal from 'components/Common/Modal';
+import Tags from 'components/Common/Tags';
 
 import Actions from './Actions';
 
@@ -37,11 +38,12 @@ export default function User(): JSX.Element {
     firstName: '',
     lastName: '',
     email: '',
-    roles: [ERoles.user]
+    roles: []
   };
   const [form, setForm] = useState(userState);
   const [userID, setUserID] = useState(null);
 
+  const [roles, setRole] = useState<ERoles[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -72,7 +74,7 @@ export default function User(): JSX.Element {
   function handleOpenModal(user?: IUser): void {
     setOpenModal(true);
     if (user) {
-      const { id, firstName, lastName, email, roles } = user;
+      const { id, firstName, lastName, email } = user;
       setForm({
         id,
         firstName,
@@ -119,7 +121,11 @@ export default function User(): JSX.Element {
     }
     setOpenModal(false);
     setSearchTerm('');
-    return dispatch(createUser(form));
+    const withRoles = {
+      ...form,
+      roles
+    };
+    return dispatch(createUser(withRoles));
   }
 
   /* Handles user deletion */
@@ -127,6 +133,13 @@ export default function User(): JSX.Element {
     dispatch(deleteUser(id));
     setOpenDeleteModal(false);
     setSearchTerm('');
+  }
+
+  /* Handles roles changes */
+  function handleRolesChange(
+    event: React.ChangeEvent<{ value: unknown }>
+  ): void {
+    setRole(event.target.value as ERoles[]);
   }
 
   return (
@@ -172,6 +185,11 @@ export default function User(): JSX.Element {
           value={form.email}
           onChange={event => setField(event)}
         />
+        <Tags
+          data={Object.keys(ERoles)}
+          handleChange={handleRolesChange}
+          value={roles}
+        />
       </Modal>
 
       <Modal
@@ -180,7 +198,7 @@ export default function User(): JSX.Element {
         closeButtonName="Cancelar"
         confirmButtonName="Confirmar"
         showContentText
-        contentText="Tem certeza que deseja remover este usuário?"
+        contentText="Tem certeza que deseja deletar este usuário?"
         handleClose={handleCloseDeleteModal}
         handleConfirm={() => handleDelete(userID)}
       />
