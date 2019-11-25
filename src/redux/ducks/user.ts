@@ -1,20 +1,16 @@
 import {
+  ITypes,
   IFetchAction,
   ISuccessAction,
   IFailureAction,
+  Action,
   ThunkAction,
   Dispatch
 } from 'interfaces/redux';
+import { IRequest } from 'interfaces/request';
+import { IUser, IUserState } from '../../interfaces/user';
 
 import { sendAlert } from 'redux/ducks/alert';
-
-import { IRequest } from 'interfaces/request';
-import {
-  IUser,
-  IUserState,
-  IUserTypes,
-  IUserAction
-} from '../../interfaces/user';
 
 import { EMethod } from 'enums/method';
 
@@ -22,7 +18,7 @@ import { fetch } from 'utils/request';
 import { handleError } from 'utils/error';
 
 /* User Types. */
-const types: IUserTypes = {
+const types: ITypes = {
   FETCH: 'USER/FETCH',
   SUCCESS: 'USER/SUCCESS',
   FAILURE: 'USER/FAILURE',
@@ -44,7 +40,7 @@ const initialState: IUserState = {
 /* User Reducer. */
 export default (
   state: IUserState = initialState,
-  action: IUserAction
+  action: Action
 ): IUserState => {
   switch (action.type) {
     case types.FETCH:

@@ -3,6 +3,9 @@ export interface ITypes {
   SUCCESS: string;
   FAILURE: string;
   RESET?: string;
+  CREATE?: string;
+  UPDATE?: string;
+  DELETE?: string;
 }
 
 export type BaseAction = {
@@ -26,6 +29,21 @@ export interface IFailureAction extends BaseAction {
 
 export interface IResetAction extends BaseAction {
   type: ITypes['RESET'];
+}
+
+export interface ICreateAction extends BaseAction {
+  type: ITypes['CREATE'];
+  payload: any;
+}
+
+export interface IUpdateAction extends BaseAction {
+  type: ITypes['UPDATE'];
+  payload: any;
+}
+
+export interface IDeleteAction extends BaseAction {
+  type: ITypes['DELETE'];
+  payload: string;
 }
 
 export type Action =
