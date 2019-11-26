@@ -9,16 +9,18 @@ import {
   ThunkAction,
   Dispatch,
   Action
-} from '../../interfaces/redux';
+} from 'interfaces/redux';
 
 import {
   IAuthenticationState,
   ICredentials,
   IClaims,
   IToken
-} from '../../interfaces/authentication';
+} from 'interfaces/authentication';
 
-import { fetchAuth } from '../../utils/request';
+import { sendAlert } from './alert';
+
+import { fetchAuth } from 'utils/request';
 
 /* Authentication Types. */
 const types: ITypes = {
@@ -115,5 +117,6 @@ export const checkAuthentication = (
     dispatch(successAuthentication(payload));
   } catch (error) {
     dispatch(failureAuthentication(error));
+    dispatch(sendAlert(error, 'error'));
   }
 };

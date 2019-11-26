@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import { checkAuthentication } from 'redux/ducks/authentication';
-import { sendAlert } from 'redux/ducks/alert';
 
 import IStore from 'interfaces/store';
 import { IAuthenticationState, ICredentials } from 'interfaces/authentication';
@@ -60,7 +59,7 @@ export default function Authentication(props: IProps): JSX.Element {
   const authentication = useSelector<IStore, IAuthenticationState>(
     state => state.authentication
   );
-  const { authorized, error } = authentication;
+  const { fetch, authorized } = authentication;
 
   const classes = useStyles(props);
 
@@ -69,8 +68,6 @@ export default function Authentication(props: IProps): JSX.Element {
 
     const credentials: ICredentials = { email, password };
     dispatch(checkAuthentication(credentials));
-
-    if (error) dispatch(sendAlert(error, 'error'));
   }
 
   if (authorized) return <Redirect to="/dashboard/user" />;
@@ -123,11 +120,12 @@ export default function Authentication(props: IProps): JSX.Element {
           <Button
             type="submit"
             fullWidth
+            disabled={fetch}
             variant="contained"
             color="primary"
             className={classes.submit}
           >
-            Logar
+            {!fetch ? 'Logar' : 'Carregando...'}
           </Button>
           <Grid container>
             <Grid item xs>
