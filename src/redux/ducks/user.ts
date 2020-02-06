@@ -74,7 +74,7 @@ export const fetchUser = (): IFetchAction => ({
   type: types.FETCH
 });
 
-export const successUser = (payload: IUser[]): ISuccessAction => ({
+export const successUser = (payload: IUser[]): ISuccessAction<IUser[]> => ({
   type: types.SUCCESS,
   payload
 });

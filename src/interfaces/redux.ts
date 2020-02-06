@@ -17,9 +17,9 @@ export interface IFetchAction extends BaseAction {
   type: ITypes['FETCH'];
 }
 
-export interface ISuccessAction extends BaseAction {
+export interface ISuccessAction<T> extends BaseAction {
   type: ITypes['SUCCESS'];
-  payload: any;
+  payload: T;
 }
 
 export interface IFailureAction extends BaseAction {
@@ -31,14 +31,14 @@ export interface IResetAction extends BaseAction {
   type: ITypes['RESET'];
 }
 
-export interface ICreateAction extends BaseAction {
+export interface ICreateAction<T> extends BaseAction {
   type: ITypes['CREATE'];
-  payload: any;
+  payload: T;
 }
 
-export interface IUpdateAction extends BaseAction {
+export interface IUpdateAction<T> extends BaseAction {
   type: ITypes['UPDATE'];
-  payload: any;
+  payload: T;
 }
 
 export interface IDeleteAction extends BaseAction {
@@ -48,7 +48,7 @@ export interface IDeleteAction extends BaseAction {
 
 export type Action =
   | IFetchAction
-  | ISuccessAction
+  | ISuccessAction<any>
   | IFailureAction
   | IResetAction;
 

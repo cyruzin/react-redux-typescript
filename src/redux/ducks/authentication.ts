@@ -91,7 +91,9 @@ export const fetchAuthentication = (): IFetchAction => ({
   type: types.FETCH
 });
 
-export const successAuthentication = (payload: IToken): ISuccessAction => ({
+export const successAuthentication = (
+  payload: IToken
+): ISuccessAction<IToken> => ({
   type: types.SUCCESS,
   payload
 });

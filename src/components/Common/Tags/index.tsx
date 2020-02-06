@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  createStyles,
-  makeStyles,
-  useTheme,
-  Theme
-} from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -13,52 +8,16 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
 
+import { useStyles, getStyles, MenuProps } from './styles';
+
 interface IProps {
   data: Array<any>;
   value: any;
   handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
-  classes?: any;
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-      maxWidth: 300
-    },
-    chips: {
-      display: 'flex',
-      flexWrap: 'wrap'
-    },
-    chip: {
-      margin: 2
-    }
-  })
-);
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250
-    }
-  }
-};
-
-function getStyles(name: string, value: string[], theme: Theme) {
-  return {
-    fontWeight:
-      value.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  };
 }
 
 export default function Tags(props: IProps): JSX.Element {
-  const classes = useStyles(props);
+  const classes = useStyles();
   const theme = useTheme();
   const { data, value, handleChange } = props;
 

@@ -15,51 +15,23 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
+
+import { useStyles } from './styles';
 
 import FormValidation from '@react-form-fields/material-ui/components/FormValidation';
 import FieldText from '@react-form-fields/material-ui/components/Text';
 
-interface IProps {
-  classes?: any;
-}
-
-const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white
-    }
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
-}));
-
-export default function Authentication(props: IProps): JSX.Element {
+export default function Authentication(): JSX.Element {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
   const authentication = useSelector<IStore, IAuthenticationState>(
     state => state.authentication
   );
   const { fetch, authorized } = authentication;
 
-  const classes = useStyles(props);
+  const classes = useStyles();
 
   async function authenticate(isValid: boolean): Promise<void> {
     if (!isValid) return;

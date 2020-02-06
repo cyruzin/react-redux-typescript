@@ -8,7 +8,7 @@ import { AUTH_ENDPOINT, API_ENDPOINT } from '../settings';
 /* Default error messages for failing requests. */
 const errorMessages: IRequestError = {
   default: 'Algo deu errado',
-  noResponse: 'Sem responsta do servidor',
+  noResponse: 'Sem resposta do servidor',
   network: 'Erro de rede'
 };
 
