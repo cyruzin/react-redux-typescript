@@ -1,6 +1,6 @@
 # Base Web Project
 
-This is base project for React projects.
+Base React web project with Redux and Typescript.
 
 ## Prerequisite
 
