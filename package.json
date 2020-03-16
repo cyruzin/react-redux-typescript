@@ -8,6 +8,7 @@
     "@react-form-fields/material-ui": "^2.1.9",
     "axios": "^0.19.2",
     "date-fns": "^2.11.0",
+    "husky": "^4.2.3",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
@@ -45,6 +46,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:nowatch": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint 'src/**/**.{ts,tsx,js,jsx}'",
     "lint:fix": "eslint 'src/**/**.{ts,tsx,js,jsx}' --fix"
@@ -66,5 +68,11 @@
   },
   "eslintIgnore": [
     "serviceWorker.ts"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint:fix && yarn lint && yarn test:nowatch",
+      "pre-push": "yarn lint:fix && yarn lint && yarn test:nowatch"
+    }
+  }
 }
