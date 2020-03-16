@@ -1,16 +1,25 @@
 import IBaseAction from 'interfaces/redux'
+import { IAlertAction } from 'interfaces/alert'
+
+export interface IClaims {
+  token_type?: string
+  exp: number
+  jti?: string
+  id: number
+}
+
+export interface IToken extends IClaims {
+  token: string
+  id: number
+  email: string
+}
 
 export interface IAuthenticationState {
   fetch: boolean
   token: string
-  exp: number
-  email: string
-  iat: number
   id: number
-  firstName: string
-  lastName: string
-  roles: Array<string>
-  type: number
+  email: string
+  exp: number
   authorized: boolean
   error: string
 }
@@ -18,21 +27,6 @@ export interface IAuthenticationState {
 export interface ICredentials {
   email: string
   password: string
-}
-
-export interface IClaims {
-  email: string
-  exp: number
-  iat: number
-  id: number
-  firstName: string
-  lastName: string
-  roles: Array<string>
-  type: number
-}
-
-export interface IToken extends IClaims {
-  token: string
 }
 
 /**
@@ -65,7 +59,7 @@ export interface IResetAction extends IBaseAction<ETypesAuthentication, null> {
   type: ETypesAuthentication.RESET
 }
 
-export type Action =
+export type IAuthenticationAction =
   | IFetchAction
   | ISuccessAction
   | IFailureAction
@@ -73,10 +67,15 @@ export type Action =
 
 export type GetState = () => any
 
-export type PromiseAction = Promise<Action>
+export type PromiseAction = Promise<IAuthenticationAction>
 
 export type ThunkAction = (dispatch: Dispatch, getState: GetState) => any
 
 export type Dispatch = (
-  action: Action | ThunkAction | PromiseAction | Array<Action>
+  action:
+    | IAuthenticationAction
+    | ThunkAction
+    | PromiseAction
+    | Array<IAuthenticationAction>
+    | IAlertAction
 ) => any

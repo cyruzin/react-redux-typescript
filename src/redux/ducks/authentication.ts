@@ -4,18 +4,20 @@ import {
   IAuthenticationState,
   ICredentials,
   IClaims,
-  IToken,
   IFetchAction,
   ISuccessAction,
   IFailureAction,
   IResetAction,
-  Action,
+  IAuthenticationAction,
   Dispatch,
   ThunkAction,
-  ETypesAuthentication
+  ETypesAuthentication,
+  IToken
 } from 'interfaces/authentication'
 
-// import { sendAlert } from './alert'
+import { EAlertVariant } from 'interfaces/alert'
+
+import { sendAlert } from './alert'
 
 import { fetchAuth } from 'utils/request'
 
@@ -23,14 +25,9 @@ import { fetchAuth } from 'utils/request'
 const initialState: IAuthenticationState = {
   fetch: false,
   token: '',
-  exp: 0,
-  iat: 0,
   email: '',
+  exp: 0,
   id: 0,
-  firstName: '',
-  lastName: '',
-  roles: [],
-  type: 0,
   authorized: false,
   error: ''
 }
@@ -38,7 +35,7 @@ const initialState: IAuthenticationState = {
 /* Authentication Reducer. */
 export default (
   state: IAuthenticationState = initialState,
-  action: Action
+  action: IAuthenticationAction
 ): IAuthenticationState => {
   switch (action.type) {
     case ETypesAuthentication.FETCH:
@@ -51,14 +48,9 @@ export default (
         ...state,
         fetch: false,
         token: action.payload.token,
-        exp: action.payload.exp,
-        iat: action.payload.iat,
         email: action.payload.email,
         id: action.payload.id,
-        firstName: action.payload.firstName,
-        lastName: action.payload.lastName,
-        roles: action.payload.roles,
-        type: action.payload.type,
+        exp: action.payload.exp,
         authorized: true,
         error: ''
       }
@@ -100,12 +92,19 @@ export const checkAuthentication = (
 ): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch(fetchAuthentication())
-    const response = await fetchAuth(credentials)
-    const claims: IClaims = jwtDecode(response)
-    const payload: IToken = { token: response, ...claims }
+    const { token, user } = await fetchAuth(credentials)
+    const claims: IClaims = jwtDecode(token)
+    const { exp } = claims
+    const { id, email } = user
+    const payload: IToken = {
+      token,
+      id,
+      email,
+      exp
+    }
     dispatch(successAuthentication(payload))
   } catch (error) {
     dispatch(failureAuthentication(error))
-    //dispatch(sendAlert(error, 'error'))
+    dispatch(sendAlert(error, EAlertVariant.ERROR))
   }
 }
