@@ -1,24 +1,19 @@
 import {
-  IAlertTypes,
   IAlertState,
   IAlertAction,
   IAlertSendAction,
-  IAlertResetAction
-} from '../../interfaces/alert';
-
-/* Alert Types. */
-const types: IAlertTypes = {
-  SEND: 'ALERT/SEND',
-  RESET: 'ALERT/RESET'
-};
+  IAlertResetAction,
+  EAlertTypes,
+  EAlertVariant
+} from '../../interfaces/alert'
 
 /* Alert State. */
 const initialState: IAlertState = {
   show: false,
   message: '',
-  variant: 'info',
+  variant: EAlertVariant.INFO,
   duration: 3000
-};
+}
 
 /* Alert Reducer. */
 export default (
@@ -26,37 +21,37 @@ export default (
   action: IAlertAction
 ): IAlertState => {
   switch (action.type) {
-    case types.SEND:
+    case EAlertTypes.SEND:
       return {
         ...state,
         show: true,
         message: action.message,
-        variant: action.variant,
+        variant: action.variant as EAlertVariant,
         duration: action.duration
-      };
-    case types.RESET:
+      }
+    case EAlertTypes.RESET:
       return {
         ...state,
         show: false,
         message: ''
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
 /* Alert Action Creators Functions. */
 export const sendAlert = (
   message: string,
-  variant?: string,
+  variant?: EAlertVariant,
   duration?: number
 ): IAlertSendAction => ({
-  type: types.SEND,
+  type: EAlertTypes.SEND,
   message,
-  variant: variant || 'info',
+  variant: variant || EAlertVariant.INFO,
   duration: duration || 3000
-});
+})
 
 export const resetAlert = (): IAlertResetAction => ({
-  type: types.RESET
-});
+  type: EAlertTypes.RESET
+})

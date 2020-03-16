@@ -1,34 +1,23 @@
-import jwtDecode from 'jwt-decode';
-
-import {
-  ITypes,
-  IFetchAction,
-  ISuccessAction,
-  IFailureAction,
-  IResetAction,
-  ThunkAction,
-  Dispatch,
-  Action
-} from 'interfaces/redux';
+import jwtDecode from 'jwt-decode'
 
 import {
   IAuthenticationState,
   ICredentials,
   IClaims,
-  IToken
-} from 'interfaces/authentication';
+  IToken,
+  IFetchAction,
+  ISuccessAction,
+  IFailureAction,
+  IResetAction,
+  Action,
+  Dispatch,
+  ThunkAction,
+  ETypesAuthentication
+} from 'interfaces/authentication'
 
-import { sendAlert } from './alert';
+// import { sendAlert } from './alert'
 
-import { fetchAuth } from 'utils/request';
-
-/* Authentication Types. */
-const types: ITypes = {
-  FETCH: 'AUTHENTICATION/FETCH',
-  SUCCESS: 'AUTHENTICATION/SUCCESS',
-  FAILURE: 'AUTHENTICATION/FAILURE',
-  RESET: 'AUTHENTICATION/RESET'
-};
+import { fetchAuth } from 'utils/request'
 
 /* Authentication State. */
 const initialState: IAuthenticationState = {
@@ -44,7 +33,7 @@ const initialState: IAuthenticationState = {
   type: 0,
   authorized: false,
   error: ''
-};
+}
 
 /* Authentication Reducer. */
 export default (
@@ -52,12 +41,12 @@ export default (
   action: Action
 ): IAuthenticationState => {
   switch (action.type) {
-    case types.FETCH:
+    case ETypesAuthentication.FETCH:
       return {
         ...state,
         fetch: true
-      };
-    case types.SUCCESS:
+      }
+    case ETypesAuthentication.SUCCESS:
       return {
         ...state,
         fetch: false,
@@ -72,53 +61,51 @@ export default (
         type: action.payload.type,
         authorized: true,
         error: ''
-      };
-    case types.FAILURE:
+      }
+    case ETypesAuthentication.FAILURE:
       return {
         ...state,
         fetch: false,
         error: action.payload
-      };
-    case types.RESET:
-      return initialState;
+      }
+    case ETypesAuthentication.RESET:
+      return initialState
     default:
-      return state;
+      return state
   }
-};
+}
 
 /* Authentication Action Creators Functions. */
 export const fetchAuthentication = (): IFetchAction => ({
-  type: types.FETCH
-});
+  type: ETypesAuthentication.FETCH
+})
 
-export const successAuthentication = (
-  payload: IToken
-): ISuccessAction<IToken> => ({
-  type: types.SUCCESS,
+export const successAuthentication = (payload: IToken): ISuccessAction => ({
+  type: ETypesAuthentication.SUCCESS,
   payload
-});
+})
 
 export const failureAuthentication = (payload: string): IFailureAction => ({
-  type: types.FAILURE,
+  type: ETypesAuthentication.FAILURE,
   payload
-});
+})
 
 export const resetAuthentication = (): IResetAction => ({
-  type: types.RESET
-});
+  type: ETypesAuthentication.RESET
+})
 
 /* Authentication Side Effects Functions. */
 export const checkAuthentication = (
   credentials: ICredentials
 ): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
   try {
-    dispatch(fetchAuthentication());
-    const response = await fetchAuth(credentials);
-    const claims: IClaims = jwtDecode(response);
-    const payload: IToken = { token: response, ...claims };
-    dispatch(successAuthentication(payload));
+    dispatch(fetchAuthentication())
+    const response = await fetchAuth(credentials)
+    const claims: IClaims = jwtDecode(response)
+    const payload: IToken = { token: response, ...claims }
+    dispatch(successAuthentication(payload))
   } catch (error) {
-    dispatch(failureAuthentication(error));
-    dispatch(sendAlert(error, 'error'));
+    dispatch(failureAuthentication(error))
+    //dispatch(sendAlert(error, 'error'))
   }
-};
+}

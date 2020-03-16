@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from '@material-ui/core/LinearProgress'
 
-import { useStyles } from './styles';
+import { useStyles } from './styles'
 
 interface IProps {
-  show: boolean;
+  show: boolean
 }
 
 export default function Loading(props: IProps): JSX.Element {
-  const classes = useStyles();
-  const { show } = props;
+  const classes = useStyles()
+  const { show } = props
 
   return (
     show && (
@@ -18,5 +18,5 @@ export default function Loading(props: IProps): JSX.Element {
         <LinearProgress />
       </div>
     )
-  );
+  )
 }

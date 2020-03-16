@@ -1,23 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 
 interface IProps {
-  open?: boolean;
-  title: string;
-  children?: React.ReactNode;
-  showContentText?: boolean;
-  contentText?: string;
-  showCloseButton?: boolean;
-  closeButtonName?: string;
-  confirmButtonName?: string;
-  handleConfirm: () => void;
-  handleClose?: () => void;
+  open?: boolean
+  title: string
+  children?: React.ReactNode
+  showContentText?: boolean
+  contentText?: string
+  showCloseButton?: boolean
+  closeButtonName?: string
+  confirmButtonName?: string
+  handleConfirm: () => void
+  handleClose?: () => void
 }
 
 export default function Modal(props: IProps): JSX.Element {
@@ -32,7 +32,7 @@ export default function Modal(props: IProps): JSX.Element {
     confirmButtonName,
     handleConfirm,
     handleClose
-  } = props;
+  } = props
 
   return (
     <>
@@ -63,7 +63,7 @@ export default function Modal(props: IProps): JSX.Element {
         </DialogActions>
       </Dialog>
     </>
-  );
+  )
 }
 
 Modal.defaultProps = {
@@ -75,4 +75,4 @@ Modal.defaultProps = {
   closeButtonName: 'Close',
   confirmButtonName: 'OK',
   handleClose: () => false
-};
+}

@@ -1,6 +1,6 @@
-# WA Project Base Web Project
+# Base Web Project
 
-This is a base web project that uses Redux to manage React state.
+This is base project for React projects.
 
 ## Prerequisite
 
@@ -20,13 +20,11 @@ For development create .env.development file and for production create .env.prod
 
 ### Environments (.env)
 
-| NAME                     | DEFAULT     | REQUIRED | DESCRIPTION                 |
-|--------------------------|-------------|----------|-----------------------------|
-| REACT_APP_ENV            | production  | true     | production or development   |
-| REACT_APP_API_ENDPOINT   |             | true     | api endpoint                |
-| REACT_APP_AUTH_ENDPOINT  |             | true     | api authentication endpoint |
-| REACT_APP_SENTRY_KEY     |             | false    | DNS public from sentry.io   |
-
+| NAME                    | DEFAULT    | REQUIRED | DESCRIPTION                 |
+| ----------------------- | ---------- | -------- | --------------------------- |
+| REACT_APP_ENV           | production | true     | production or development   |
+| REACT_APP_API_ENDPOINT  |            | true     | api endpoint                |
+| REACT_APP_AUTH_ENDPOINT |            | true     | api authentication endpoint |
 
 ### Local
 
@@ -42,7 +40,7 @@ Then, run the command bellow:
  yarn start
 ```
 
-### Docker 
+### Docker
 
 Run the command bellow:
 
@@ -50,17 +48,12 @@ Run the command bellow:
  docker-compose up -d
 ```
 
-## Login Credentials
-
-**E-mail**: admin@waproject.com.br
-
-**Password**: senha@123
-
 ## Tests
 
 This application uses **testing-library** for tests.
 
 ## Techonologies & Tools
+
 - Axios
 - Date-Fns
 - Material UI
@@ -69,7 +62,6 @@ This application uses **testing-library** for tests.
 - React Router
 - Redux
 - Redux-Thunk
-- Lodash
 - Typescript
 
 ## Best Practices

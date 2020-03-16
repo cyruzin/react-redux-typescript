@@ -1,36 +1,36 @@
-import React from 'react';
+import React from 'react'
 
-import clsx from 'clsx';
+import clsx from 'clsx'
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import List from '@material-ui/core/List'
+import Typography from '@material-ui/core/Typography'
+import Divider from '@material-ui/core/Divider'
+import IconButton from '@material-ui/core/IconButton'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import MenuIcon from '@material-ui/icons/Menu'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 
-import { useStyles } from './styles';
+import { useStyles } from './styles'
 
-import Menu from '../Menu';
+import Menu from '../Menu'
 
 interface IProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function Content(props: IProps) {
-  const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const classes = useStyles()
+  const [open, setOpen] = React.useState(true)
 
-  const handleDrawerOpen = () => setOpen(true);
-  const handleDrawerClose = () => setOpen(false);
+  const handleDrawerOpen = () => setOpen(true)
+  const handleDrawerClose = () => setOpen(false)
 
-  const { children } = props;
+  const { children } = props
 
   return (
     <div className={classes.root}>
@@ -87,5 +87,5 @@ export default function Content(props: IProps) {
         </Container>
       </main>
     </div>
-  );
+  )
 }

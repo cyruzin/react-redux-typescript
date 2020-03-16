@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { resetAlert } from '../../../redux/ducks/alert';
+import { resetAlert } from '../../../redux/ducks/alert'
 
-import IStore from '../../../interfaces/store';
-import { IAlertState } from '../../../interfaces/alert';
+import IStore from '../../../interfaces/store'
+import { IAlertState } from '../../../interfaces/alert'
 
-import Snackbar from '@material-ui/core/Snackbar';
+import Snackbar from '@material-ui/core/Snackbar'
 
-import Content from './Content';
+import Content from './Content'
 
 export default function Alert() {
-  const alert = useSelector<IStore, IAlertState>(state => state.alert);
-  const { show, duration, message, variant } = alert;
+  const alert = useSelector<IStore, IAlertState>(state => state.alert)
+  const { show, duration, message, variant } = alert
 
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<any>()
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   function handleClick(show: boolean): void {
-    setOpen(show);
+    setOpen(show)
   }
 
   function handleClose(
@@ -27,15 +27,15 @@ export default function Alert() {
     reason: string
   ): void {
     if (reason === 'clickaway') {
-      return;
+      return
     }
-    setOpen(false);
-    dispatch(resetAlert());
+    setOpen(false)
+    dispatch(resetAlert())
   }
 
   useEffect(() => {
-    handleClick(show);
-  }, [show]);
+    handleClick(show)
+  }, [show])
 
   return (
     <div>
@@ -51,5 +51,5 @@ export default function Alert() {
         <Content onClick={handleClose} variant={variant} message={message} />
       </Snackbar>
     </div>
-  );
+  )
 }

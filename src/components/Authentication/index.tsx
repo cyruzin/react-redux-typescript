@@ -1,46 +1,46 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
-import { checkAuthentication } from 'redux/ducks/authentication';
+import { checkAuthentication } from 'redux/ducks/authentication'
 
-import IStore from 'interfaces/store';
-import { IAuthenticationState, ICredentials } from 'interfaces/authentication';
+import IStore from 'interfaces/store'
+import { IAuthenticationState, ICredentials } from 'interfaces/authentication'
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
+import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
 
-import { useStyles } from './styles';
+import { useStyles } from './styles'
 
-import FormValidation from '@react-form-fields/material-ui/components/FormValidation';
-import FieldText from '@react-form-fields/material-ui/components/Text';
+import FormValidation from '@react-form-fields/material-ui/components/FormValidation'
+import FieldText from '@react-form-fields/material-ui/components/Text'
 
 export default function Authentication(): JSX.Element {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState(null)
+  const [password, setPassword] = useState(null)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const authentication = useSelector<IStore, IAuthenticationState>(
     state => state.authentication
-  );
-  const { fetch, authorized } = authentication;
+  )
+  const { fetch, authorized } = authentication
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   async function authenticate(isValid: boolean): Promise<void> {
-    if (!isValid) return;
+    if (!isValid) return
 
-    const credentials: ICredentials = { email, password };
-    dispatch(checkAuthentication(credentials));
+    const credentials: ICredentials = { email, password }
+    dispatch(checkAuthentication(credentials))
   }
 
-  if (authorized) return <Redirect to="/dashboard/user" />;
+  if (authorized) return <Redirect to="/dashboard/user" />
 
   return (
     <Container component="main" maxWidth="xs">
@@ -102,5 +102,5 @@ export default function Authentication(): JSX.Element {
         </FormValidation>
       </div>
     </Container>
-  );
+  )
 }

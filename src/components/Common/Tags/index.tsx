@@ -1,25 +1,25 @@
-import React from 'react';
+import React from 'react'
 
-import { useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Chip from '@material-ui/core/Chip';
+import { useTheme } from '@material-ui/core/styles'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
+import Chip from '@material-ui/core/Chip'
 
-import { useStyles, getStyles, MenuProps } from './styles';
+import { useStyles, getStyles, MenuProps } from './styles'
 
 interface IProps {
-  data: Array<any>;
-  value: any;
-  handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
+  data: Array<any>
+  value: any
+  handleChange: (event: React.ChangeEvent<{ value: unknown }>) => void
 }
 
 export default function Tags(props: IProps): JSX.Element {
-  const classes = useStyles();
-  const theme = useTheme();
-  const { data, value, handleChange } = props;
+  const classes = useStyles()
+  const theme = useTheme()
+  const { data, value, handleChange } = props
 
   return (
     <>
@@ -53,5 +53,5 @@ export default function Tags(props: IProps): JSX.Element {
         </Select>
       </FormControl>
     </>
-  );
+  )
 }

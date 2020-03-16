@@ -1,5 +1,5 @@
 export interface IValidationErrors {
-  message: string;
-  path: string;
-  type: string;
+  message: string
+  path: string
+  type: string
 }

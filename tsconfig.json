@@ -1,32 +1,32 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "outDir": "build/dist", /* Redirect output structure to the directory. */
-    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */
-    "module": "ESNext", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
+    "outDir": "build/dist" /* Redirect output structure to the directory. */,
+    "target": "es5" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
+    "module": "ESNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
     "lib": [
       "es2017",
       "dom",
       "dom.iterable",
       "esnext"
-    ], /* Specify library files to be included in the compilation. */
-    "sourceMap": true, /* Generates corresponding '.map' file. */
-    "allowJs": true, /* Allow javascript files to be compiled. */
-    "jsx": "preserve", /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
-    "moduleResolution": "node", /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "rootDir": "src", /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    ] /* Specify library files to be included in the compilation. */,
+    "sourceMap": true /* Generates corresponding '.map' file. */,
+    "allowJs": true /* Allow javascript files to be compiled. */,
+    "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
+    "moduleResolution": "node" /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */,
+    "rootDir": "src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true, /* Report error when not all code paths in function return a value. */
-    "noImplicitThis": true, /* Raise error on 'this' expressions with an implied 'any' type. */
-    "noImplicitAny": true, /* Raise error on expressions and declarations with an implied 'any' type. */
-    "noUnusedLocals": true, /* Report errors on unused locals. */
-    "noEmit": true, /* Do not emit outputs. */
-    "allowSyntheticDefaultImports": true, /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
-    "importHelpers": true, /* Import emit helpers from 'tslib'. */
-    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    "strict": false, /* Enable all strict type-checking options. */
-    "isolatedModules": true, /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
-    "experimentalDecorators": true, /* Enables experimental support for ES7 decorators. */
+    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+    "noImplicitThis": true /* Raise error on 'this' expressions with an implied 'any' type. */,
+    "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
+    "noUnusedLocals": true /* Report errors on unused locals. */,
+    "noEmit": true /* Do not emit outputs. */,
+    "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,
+    "importHelpers": true /* Import emit helpers from 'tslib'. */,
+    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    "strict": false /* Enable all strict type-checking options. */,
+    "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
+    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     "baseUrl": "./src",
     "skipLibCheck": true,
     "resolveJsonModule": true,
@@ -41,8 +41,5 @@
     "jest",
     "analyze.js"
   ],
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

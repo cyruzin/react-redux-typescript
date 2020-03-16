@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
-import IconButton from '@material-ui/core/IconButton';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Fade from '@material-ui/core/Fade';
+import IconButton from '@material-ui/core/IconButton'
+import MoreVertIcon from '@material-ui/icons/MoreVert'
+import Menu from '@material-ui/core/Menu'
+import MenuItem from '@material-ui/core/MenuItem'
+import Fade from '@material-ui/core/Fade'
 
 type Item = {
-  name: string;
-  callback: () => any;
-};
+  name: string
+  callback: () => any
+}
 
 interface IProps {
-  items: Array<Item>;
+  items: Array<Item>
 }
 
 export default function Actions(props: IProps) {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const openMenu = Boolean(anchorEl);
-  const { items } = props;
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const openMenu = Boolean(anchorEl)
+  const { items } = props
 
   function handleClick(event: React.MouseEvent<HTMLElement>): void {
-    setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget)
   }
 
   function handleClose(): void {
-    setAnchorEl(null);
+    setAnchorEl(null)
   }
 
   return (
@@ -52,5 +52,5 @@ export default function Actions(props: IProps) {
         ))}
       </Menu>
     </>
-  );
+  )
 }

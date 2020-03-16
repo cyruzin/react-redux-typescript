@@ -1,1 +1,1 @@
-declare module 'redux';
+declare module 'redux'

@@ -1,9 +1,7 @@
-import { IAuthenticationState } from './authentication';
-import { IAlertState } from './alert';
-import { IUserState } from './user';
+import { IAuthenticationState } from './authentication'
+import { IAlertState } from './alert'
 
 export default interface IStore {
-  authentication: IAuthenticationState;
-  alert: IAlertState;
-  user: IUserState;
+  authentication: IAuthenticationState
+  alert: IAlertState
 }

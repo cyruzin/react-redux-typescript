@@ -1,23 +1,23 @@
-import React from 'react';
-import clsx from 'clsx';
+import React from 'react'
+import clsx from 'clsx'
 
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import CloseIcon from '@material-ui/icons/Close'
+import IconButton from '@material-ui/core/IconButton'
+import SnackbarContent from '@material-ui/core/SnackbarContent'
 
-import { useStyles, variantIcon } from './styles';
+import { useStyles, variantIcon } from './styles'
 
 interface IProps {
-  className?: string;
-  message: string;
-  variant: 'error' | 'info' | 'success' | 'warning';
-  onClick: (event: React.SyntheticEvent<any, Event>, reason: string) => void;
+  className?: string
+  message: string
+  variant: 'error' | 'info' | 'success' | 'warning'
+  onClick: (event: React.SyntheticEvent<any, Event>, reason: string) => void
 }
 
 export default function Content(props: IProps) {
-  const classes = useStyles(props);
-  const { className, message, onClick, variant, ...other } = props;
-  const Icon = variantIcon[variant];
+  const classes = useStyles(props)
+  const { className, message, onClick, variant, ...other } = props
+  const Icon = variantIcon[variant]
 
   return (
     <SnackbarContent
@@ -41,5 +41,5 @@ export default function Content(props: IProps) {
       ]}
       {...other}
     />
-  );
+  )
 }

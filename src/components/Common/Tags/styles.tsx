@@ -1,7 +1,7 @@
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 48
+const ITEM_PADDING_TOP = 8
 
 export const MenuProps = {
   PaperProps: {
@@ -10,7 +10,7 @@ export const MenuProps = {
       width: 250
     }
   }
-};
+}
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       margin: 2
     }
   })
-);
+)
 
 export function getStyles(name: string, value: string[], theme: Theme) {
   return {
@@ -35,5 +35,5 @@ export function getStyles(name: string, value: string[], theme: Theme) {
       value.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium
-  };
+  }
 }

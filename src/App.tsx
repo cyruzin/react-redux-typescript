@@ -1,13 +1,13 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import store from './redux/';
+import store from './redux/'
 
-import Routes from './components/Router';
-import PrivateRoute from './components/Router/PrivateRoute';
-import Authentication from './components/Authentication';
-import Alert from './components/Global/Alert';
+import Routes from './components/Router'
+import PrivateRoute from './components/Router/PrivateRoute'
+import Authentication from './components/Authentication'
+import Alert from './components/Global/Alert'
 
 const App: React.FC = () => {
   return (
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         </Switch>
       </Router>
     </Provider>
-  );
-};
+  )
+}
 
-export default App;
+export default App
