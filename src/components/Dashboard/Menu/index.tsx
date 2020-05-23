@@ -9,21 +9,21 @@ import LogoutIcon from '@material-ui/icons/ArrowBackIosOutlined'
 
 export default (
   <>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <Link to="/dashboard/user" style={{ textDecoration: 'none' }}>
+    <Link to="/dashboard/user" style={{ textDecoration: 'none' }}>
+      <ListItem button>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
         <ListItemText primary="Usuários" />
-      </Link>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LogoutIcon />
-      </ListItemIcon>
-      <Link to="/dashboard/logout" style={{ textDecoration: 'none' }}>
+      </ListItem>
+    </Link>
+    <Link to="/dashboard/logout" style={{ textDecoration: 'none' }}>
+      <ListItem button>
+        <ListItemIcon>
+          <LogoutIcon />
+        </ListItemIcon>
         <ListItemText primary="Sair" />
-      </Link>
-    </ListItem>
+      </ListItem>
+    </Link>
   </>
 )
