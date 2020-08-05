@@ -1,6 +1,6 @@
 {
-  "name": "sdia",
-  "version": "0.0.1",
+  "name": "react-redux-typescript",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
