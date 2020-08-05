@@ -32,16 +32,16 @@ export default function Tags(props: IProps): JSX.Element {
           value={value}
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
-          renderValue={selected => (
+          renderValue={(selected) => (
             <div className={classes.chips}>
-              {(selected as string[]).map(value => (
+              {(selected as string[]).map((value) => (
                 <Chip key={value} label={value} className={classes.chip} />
               ))}
             </div>
           )}
           MenuProps={MenuProps}
         >
-          {data.map(name => (
+          {data.map((name) => (
             <MenuItem
               key={name}
               value={name}

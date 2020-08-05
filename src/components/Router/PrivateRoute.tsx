@@ -13,7 +13,7 @@ export default function PrivateRoute(
 ) {
   const dispatch = useDispatch<any>()
   const authentication = useSelector<IStore, IAuthenticationState>(
-    state => state.authentication
+    (state) => state.authentication
   )
   const { authorized } = authentication
 
@@ -29,7 +29,7 @@ export default function PrivateRoute(
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         authorized ? (
           <Component {...props} />
         ) : (

@@ -11,7 +11,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Content from './Content'
 
 export default function Alert() {
-  const alert = useSelector<IStore, IAlertState>(state => state.alert)
+  const alert = useSelector<IStore, IAlertState>((state) => state.alert)
   const { show, duration, message, variant } = alert
 
   const dispatch = useDispatch<any>()

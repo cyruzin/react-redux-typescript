@@ -27,7 +27,7 @@ export default function Authentication(): JSX.Element {
 
   const dispatch = useDispatch()
   const authentication = useSelector<IStore, IAuthenticationState>(
-    state => state.authentication
+    (state) => state.authentication
   )
   const { fetch, authorized } = authentication
 
@@ -53,7 +53,7 @@ export default function Authentication(): JSX.Element {
           Login
         </Typography>
 
-        <FormValidation onSubmit={isValid => authenticate(isValid)}>
+        <FormValidation onSubmit={(isValid) => authenticate(isValid)}>
           <FieldText
             variant="outlined"
             margin="normal"
@@ -64,7 +64,7 @@ export default function Authentication(): JSX.Element {
             label="E-mail"
             name="email"
             value={email}
-            onChange={email => setEmail(email)}
+            onChange={(email) => setEmail(email)}
             autoFocus
           />
 
@@ -78,7 +78,7 @@ export default function Authentication(): JSX.Element {
             label="Senha"
             type="password"
             id="password"
-            onChange={password => setPassword(password)}
+            onChange={(password) => setPassword(password)}
             autoComplete="current-password"
           />
 

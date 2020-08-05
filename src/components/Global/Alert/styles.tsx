@@ -13,7 +13,7 @@ export const variantIcon = {
   info: InfoIcon
 }
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = makeStyles((theme) => ({
   success: {
     backgroundColor: green[600]
   },

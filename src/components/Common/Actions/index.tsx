@@ -45,7 +45,7 @@ export default function Actions(props: IProps) {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        {items.map(item => (
+        {items.map((item) => (
           <MenuItem key={item.name} onClick={item.callback}>
             {item.name}
           </MenuItem>
