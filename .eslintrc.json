@@ -40,7 +40,6 @@
     "@typescript-eslint/explicit-function-return-type": 0,
     "@typescript-eslint/no-unused-vars": ["error"],
     "@typescript-eslint/adjacent-overload-signatures": ["error"],
-    "@typescript-eslint/interface-name-prefix": ["error", "always"],
     "@typescript-eslint/explicit-member-accessibility": [
       "error",
       {
@@ -50,7 +49,18 @@
     "@typescript-eslint/member-ordering": ["error"],
     "@typescript-eslint/no-namespace": ["error"],
     "@typescript-eslint/no-require-imports": ["error"],
-    "@typescript-eslint/no-explicit-any": 0
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ]
   },
   "settings": {
     "react": {
