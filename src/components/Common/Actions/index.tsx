@@ -15,7 +15,7 @@ interface IProps {
   items: Array<Item>
 }
 
-export default function Actions(props: IProps) {
+export default function Actions(props: IProps): JSX.Element {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const openMenu = Boolean(anchorEl)
   const { items } = props

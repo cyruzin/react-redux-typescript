@@ -23,7 +23,7 @@ interface IProps {
   children: React.ReactNode
 }
 
-export default function Content(props: IProps) {
+export default function Content(props: IProps): JSX.Element {
   const classes = useStyles()
   const [open, setOpen] = React.useState(true)
 

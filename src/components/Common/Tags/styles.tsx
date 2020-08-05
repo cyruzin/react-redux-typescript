@@ -29,7 +29,7 @@ export const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export function getStyles(name: string, value: string[], theme: Theme) {
+export function getStyles(name: string, value: string[], theme: Theme): any {
   return {
     fontWeight:
       value.indexOf(name) === -1

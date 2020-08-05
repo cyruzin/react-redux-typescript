@@ -14,7 +14,7 @@ interface IProps {
   onClick: (event: React.SyntheticEvent<any, Event>, reason: string) => void
 }
 
-export default function Content(props: IProps) {
+export default function Content(props: IProps): JSX.Element {
   const classes = useStyles(props)
   const { className, message, onClick, variant, ...other } = props
   const Icon = variantIcon[variant]

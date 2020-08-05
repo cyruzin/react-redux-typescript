@@ -10,7 +10,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 
 import Content from './Content'
 
-export default function Alert() {
+export default function Alert(): JSX.Element {
   const alert = useSelector<IStore, IAlertState>((state) => state.alert)
   const { show, duration, message, variant } = alert
 

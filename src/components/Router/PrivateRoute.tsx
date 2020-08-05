@@ -10,14 +10,13 @@ import { resetAuthentication } from '../../redux/ducks/authentication'
 export default function PrivateRoute(
   { component: Component }: any,
   { ...rest }
-) {
-  const dispatch = useDispatch<any>()
+): JSX.Element {
+  const dispatch = useDispatch()
   const authentication = useSelector<IStore, IAuthenticationState>(
     (state) => state.authentication
   )
   const { authorized } = authentication
 
-  /* Checking token expiration time. */
   if (authorized) {
     const { exp } = authentication
     if (exp < new Date().getTime() / 1000) {
