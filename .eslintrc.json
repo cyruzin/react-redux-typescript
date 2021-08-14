@@ -2,7 +2,7 @@
   "extends": [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+    "prettier",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -20,8 +20,21 @@
     "jasmine": true,
     "jest": true
   },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts?(x)"
+      ],
+      "rules": {
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+      }
+    }
+  ],
   "rules": {
     "linebreak-style": ["error", "unix"],
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
     "max-lines": ["error", 400],
     "max-len": ["error", 150],
     "no-multiple-empty-lines": [

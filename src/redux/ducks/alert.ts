@@ -5,7 +5,7 @@ import {
   IAlertResetAction,
   EAlertTypes,
   EAlertVariant
-} from '../../interfaces/alert'
+} from 'interfaces/alert'
 
 /* Alert State. */
 const initialState: IAlertState = {

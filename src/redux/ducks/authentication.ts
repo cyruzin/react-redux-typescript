@@ -87,24 +87,24 @@ export const resetAuthentication = (): IResetAction => ({
 })
 
 /* Authentication Side Effects Functions. */
-export const checkAuthentication = (
-  credentials: ICredentials
-): ThunkAction => async (dispatch: Dispatch): Promise<void> => {
-  try {
-    dispatch(fetchAuthentication())
-    const { token, user } = await fetchAuth(credentials)
-    const claims: IClaims = jwtDecode(token)
-    const { exp } = claims
-    const { id, email } = user
-    const payload: IToken = {
-      token,
-      id,
-      email,
-      exp
+export const checkAuthentication =
+  (credentials: ICredentials): ThunkAction =>
+  async (dispatch: Dispatch): Promise<void> => {
+    try {
+      dispatch(fetchAuthentication())
+      const { token, user } = await fetchAuth(credentials)
+      const claims: IClaims = jwtDecode(token)
+      const { exp } = claims
+      const { id, email } = user
+      const payload: IToken = {
+        token,
+        id,
+        email,
+        exp
+      }
+      dispatch(successAuthentication(payload))
+    } catch (error) {
+      dispatch(failureAuthentication(error))
+      dispatch(sendAlert(error, EAlertVariant.ERROR))
     }
-    dispatch(successAuthentication(payload))
-  } catch (error) {
-    dispatch(failureAuthentication(error))
-    dispatch(sendAlert(error, EAlertVariant.ERROR))
   }
-}

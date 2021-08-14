@@ -3,7 +3,7 @@ import ReduxThunk from 'redux-thunk'
 
 import ReduxDucks from './ducks'
 
-import { loadState, saveState } from '../helpers/state'
+import { loadState, saveState } from 'helpers/state'
 
 const devTools = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const composeEnhancers = devTools || compose

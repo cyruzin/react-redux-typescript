@@ -1,11 +1,10 @@
-import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
 
-import IStore from '../../interfaces/store'
-import { IAuthenticationState } from '../../interfaces/authentication'
+import IStore from 'interfaces/store'
+import { IAuthenticationState } from 'interfaces/authentication'
 
-import { resetAuthentication } from '../../redux/ducks/authentication'
+import { resetAuthentication } from 'redux/ducks/authentication'
 
 export default function PrivateRoute(
   { component: Component }: any,

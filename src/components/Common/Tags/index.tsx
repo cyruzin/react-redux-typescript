@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { useTheme } from '@material-ui/core/styles'
 import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'

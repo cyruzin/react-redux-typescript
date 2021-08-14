@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { resetAlert } from '../../../redux/ducks/alert'
+import { resetAlert } from 'redux/ducks/alert'
 
-import IStore from '../../../interfaces/store'
-import { IAlertState } from '../../../interfaces/alert'
+import IStore from 'interfaces/store'
+import { IAlertState } from 'interfaces/alert'
 
 import Snackbar from '@material-ui/core/Snackbar'
 
@@ -16,7 +16,7 @@ export default function Alert(): JSX.Element {
 
   const dispatch = useDispatch<any>()
 
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   function handleClick(show: boolean): void {
     setOpen(show)

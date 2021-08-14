@@ -1,8 +1,7 @@
-import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import Content from '../Dashboard/Content'
-import Logout from '../Authentication/Logout'
+import Logout from '../../modules/Authentication/Logout'
 
 export default function Routes() {
   return (

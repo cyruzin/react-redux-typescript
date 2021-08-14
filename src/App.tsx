@@ -6,7 +6,7 @@ import store from './redux/'
 
 import Routes from './components/Router'
 import PrivateRoute from './components/Router/PrivateRoute'
-import Authentication from './components/Authentication'
+import Authentication from './modules/Authentication'
 import Alert from './components/Global/Alert'
 
 const App: React.FC = () => {
